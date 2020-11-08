@@ -3,6 +3,7 @@ package jsonparsing;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import jsonparsing.entity.AbstractSyntaxTree;
+import jsonparsing.parser.AstFactory;
 import jsonparsing.parser.JsonToTree;
 import jsonparsing.util.Algorithm;
 
@@ -23,50 +24,16 @@ public class JsonTestMain {
         String json3 = readFileAsString(fileName3);
         try {
             JsonNode node = parse(json);
-            AbstractSyntaxTree ast= new AbstractSyntaxTree();
-            ast = JsonToTree.parse(node, ast, null);
-            Algorithm algorithm = new Algorithm();
-            LinkedList<String> list = new LinkedList<String>();
-            algorithm.traverse(list, ast.getRoot());
+            AbstractSyntaxTree ast= AstFactory.makeAst(node);
+            LinkedList<String> list = ast.toList();
+            System.out.println(list);
 
-            List<Integer> l = new ArrayList<>();
-            for (String s: list){
-                l.add(algorithm.hash(s));
-            }
-            // Collections.sort(l);
-            System.out.println(l);
             System.out.println("=============================================");
 
             JsonNode node2 = parse(json2);
-            AbstractSyntaxTree ast2= new AbstractSyntaxTree();
-            ast2 = JsonToTree.parse(node2, ast2, null);
-
-            LinkedList<String> list2 = new LinkedList<String>();
-            algorithm.traverse(list2, ast2.getRoot());
-    
-            List<Integer> l2 = new ArrayList<>();
-            for (String s: list2){
-                l2.add(algorithm.hash(s));
-            }
-            // Collections.sort(l2);
-            System.out.println(l2);
-
-            System.out.println("=============================================");
-
-            JsonNode node3 = parse(json3);
-            AbstractSyntaxTree ast3= new AbstractSyntaxTree();
-            ast3 = JsonToTree.parse(node3, ast3, null);
-
-            LinkedList<String> list3 = new LinkedList<String>();
-            algorithm.traverse(list3, ast3.getRoot());
-    
-            List<Integer> l3 = new ArrayList<>();
-            for (String s: list3){
-                l3.add(algorithm.hash(s));
-            }
-            // Collections.sort(l3);
-            System.out.println(l3);
-
+            AbstractSyntaxTree ast2= AstFactory.makeAst(node2);
+            LinkedList<String> list2 = ast2.toList();
+            System.out.println(list2);
 
         }
         catch(IOException e){

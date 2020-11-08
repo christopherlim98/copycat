@@ -29,11 +29,11 @@ public class Algorithm{
 
     }
 
-    public static String traverse(LinkedList<String> list,Node root ){
+    public String traverse(LinkedList<String> list,Node root ){
         if (root.children().isEmpty()){
             // Base case: no children
             String type = root.getType();
-     
+
             list.addFirst(Constants.HASHDICT.get(type));
             return Constants.HASHDICT.get(type);
 
@@ -43,7 +43,7 @@ public class Algorithm{
                 temp += traverse(list, child);
             }
             String type = root.getType();
-         
+
             String result =  Constants.HASHDICT.get(type) + temp;
             list.addFirst(result);
             return result;

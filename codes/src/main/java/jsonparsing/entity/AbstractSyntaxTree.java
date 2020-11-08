@@ -1,12 +1,21 @@
 package jsonparsing.entity;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+
+import jsonparsing.util.Algorithm;
 
 public class AbstractSyntaxTree {
     private Node root = null;
     private int size;
 
+    public LinkedList<String> toList (){
+        Algorithm algorithm = new Algorithm();
+        LinkedList<String> list = new LinkedList<String>();
+        algorithm.traverse(list, root);
+        return list;
+    }
 
     public void addRoot(Node root) throws IllegalArgumentException{
         if (root != null){
@@ -41,6 +50,15 @@ public class AbstractSyntaxTree {
         return snapshot;
     }
 
+    public Iterable<Node> preorder(Node root) {
+        // Find the preorder for a specified root/sub root node.
+        List<Node> snapshot = new ArrayList<>();
+        if (!root.children().isEmpty()){
+            preorderSubtree(root, snapshot);   // fill the snapshot recursively
+        }
+        return snapshot;
+    }
+
     private void postorderSubtree(Node p, List<Node> snapshot) {
         for (Node c : p.children())
           postorderSubtree(c, snapshot);
@@ -64,6 +82,14 @@ public class AbstractSyntaxTree {
         for (Node n : postorder()){
             System.out.println("Children number: " + n.getChildCount() + ", content: " + n.getContent());
         }
+    }
+
+    public int getChildrenCount(Node root){
+        int count = 0;
+        for (Node n : preorder(root)){
+            count++;
+        }
+        return count;
     }
 
 }
