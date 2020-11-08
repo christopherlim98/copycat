@@ -34,7 +34,7 @@ public class JsonTestMain {
     public static void main(String[] args) throws Exception {
 
         String fileName = "src/main/resources/json/student8599.json";
-        String fileName2 = "src/main/resources/json/student2965.json";
+        String fileName2 = "src/main/resources/json/student4473.json";
         String json = readFileAsString(fileName);
         String json2 = readFileAsString(fileName2);
         try {
@@ -48,7 +48,7 @@ public class JsonTestMain {
             JsonNode node = parse(json);
             AbstractSyntaxTree ast1= astFactory.makeAst(node);
             LinkedList<String> list = ast1.toList();
-            HashMap<Integer, String> hm = algo.traverseWithLevels(new HashMap <Integer, String>(), ast1.getRoot(), 0);
+            HashMap<Integer, String> hm1 = algo.traverseWithLevels(new HashMap <Integer, String>(), ast1.getRoot(), 0);
 
             JsonNode node2 = parse(json2);
             AbstractSyntaxTree ast2= astFactory.makeAst(node2);
@@ -56,6 +56,8 @@ public class JsonTestMain {
             HashMap<Integer, String> hm2 = algo.traverseWithLevels(new HashMap <Integer, String>(), ast2.getRoot(), 0);
             Worker worker = new Worker();
             System.out.println( "Similarity score: " + worker.compare(ast1, ast2));
+            System.out.println(hm1);
+            System.out.println(hm2);
         } catch (IOException e){}
         // File[] files = new File("src/main/resources/json").listFiles();
 
