@@ -1,23 +1,12 @@
 package jsonparsing.util;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import jsonparsing.parser.Json;
-import jsonparsing.entity.AbstractSyntaxTree;
 import jsonparsing.entity.*;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.*;
 
 import jsonparsing.constants.Constants;
 
-import static jsonparsing.parser.Json.readFileAsString;
-
 public class Algorithm{
-
-
     public static Set<String> set = new HashSet<>(Arrays.asList(Constants.TYPES));
 
     public static int hash(String input) {
@@ -29,21 +18,50 @@ public class Algorithm{
 
     }
 
-    public static String traverse(LinkedList<String> list,Node root ){
+    public String traverse(LinkedList<String> list,Node root ){
         if (root.children().isEmpty()){
             // Base case: no children
             String type = root.getType();
-            list.addFirst(type);
-            return type;
+
+            list.addFirst(Constants.HASHDICT.get(type));
+            return Constants.HASHDICT.get(type);
 
         } else {
             String temp = "";
             for (Node child : root.children()){
                 temp += traverse(list, child);
             }
-            String result = root.getType() + temp;
+            String type = root.getType();
+
+            String result =  Constants.HASHDICT.get(type) + temp;
             list.addFirst(result);
             return result;
+        }
+    }
+
+    public HashMap<Integer, String> traverseWithLevels(HashMap <Integer, String> map, Node root, Integer level){
+        if (root.children().isEmpty()){
+            // Base case: no children
+            String type = root.getType();
+            if (map.containsKey(level)){
+                String v = map.get(level);
+                map.put(level,  Constants.HASHDICT.get(type) + v );
+            } else {
+                map.put(level,  Constants.HASHDICT.get(type));
+            }
+            return map;
+        } else {
+            for (Node child : root.children()){
+                traverseWithLevels(map, child, level + 1);
+            }
+            String type = root.getType();
+            if (map.containsKey(level)){
+                String v = map.get(level);
+                map.put(level,  Constants.HASHDICT.get(type) + v );
+            } else {
+                map.put(level,  Constants.HASHDICT.get(type) );
+            }
+            return map;
         }
     }
 
