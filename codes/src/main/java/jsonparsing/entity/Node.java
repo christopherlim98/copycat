@@ -30,7 +30,7 @@ public class Node {
 
     public static Node fromJsonNode (Node parent, JsonNode jsonNode){
         int jsonChildrenNumber = jsonNode.get("children").size();
-        String jsonType = jsonNode.get("type").toString();
+        String jsonType = jsonNode.get("type").toString().replace("\"", "");
         String jsonContent = jsonNode.get("content").toString();
         return new Node(parent, jsonContent, jsonType, jsonChildrenNumber);
     }

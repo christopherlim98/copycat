@@ -5,18 +5,13 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 
 import jsonparsing.entity.AbstractSyntaxTree;
 import jsonparsing.entity.Node;
+import jsonparsing.constants.Constants;
 
 import java.util.*;
 
 
 public class JsonToTree {
-    public static String arr[] = {
-        "\"FunctionDefinition\"", "\"IterationStatement\"","\"Expression\"",
-        "\"ArithmeticExpression\"","\"PostfixExpression","\"ParameterList\"", "\"ParameterDeclaration\"",
-    "\"DeclarationSpecifiers\"","\"TypeSpecifier\"","\"DeclarationSpecifier\"","\"TypeSpecifier\""
-            ,"\"Identifier\"","\"DirectDeclarator\"","\"Declarator\"",
-            "\"Initializer\"","\"IntegerConstant\"","\"InitDeclarator\"","\"InitDeclaratorList\"","\"Declaration\""};
-    public static Set<String> set = new HashSet<>(Arrays.asList(arr));
+    public static Set<String> set = new HashSet<>(Arrays.asList(Constants.TYPES));
     public static AbstractSyntaxTree parse(JsonNode root, AbstractSyntaxTree ast, Node parent){
         if(root.isObject()){
             // base case :

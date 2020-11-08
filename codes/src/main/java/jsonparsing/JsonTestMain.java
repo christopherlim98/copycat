@@ -27,7 +27,7 @@ public class JsonTestMain {
 
             Algorithm algorithm = new Algorithm();
             LinkedList<String> list = new LinkedList<String>();
-            algorithm.traverse(list, ast.getRoot(), "");
+            algorithm.traverse(list, ast.getRoot());
             System.out.println(list);
 
 
