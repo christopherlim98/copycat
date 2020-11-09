@@ -5,6 +5,7 @@ import java.util.Arrays;
 public class JaroWinkler2 {
     private static final double DEFAULT_THRESHOLD = 0.7;
     private static final double p = 0.1;    // Constant scaling factor in Jaro-Winkler Similarity formula
+    // private static final double threshold;
 
     /**
      * Calculate Jaro-Winkler similarity.

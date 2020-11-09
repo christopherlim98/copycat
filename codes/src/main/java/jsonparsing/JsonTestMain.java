@@ -1,8 +1,12 @@
 package jsonparsing;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
 import jsonparsing.copycat.Worker;
 import jsonparsing.entity.AbstractSyntaxTree;
 import jsonparsing.parser.AstFactory;
+import jsonparsing.parser.JsonToTree;
+import jsonparsing.util.Algorithm;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,6 +19,13 @@ import java.util.*;
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane.SystemMenuBar;
 
 
+import java.net.URL;
+import java.util.*;
+
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.SystemMenuBar;
+
+import static jsonparsing.parser.Json.readFileAsString;
+import static jsonparsing.parser.Json.parse;
 
 public class JsonTestMain {
     public static void showFiles(File[] files) {
@@ -29,19 +40,33 @@ public class JsonTestMain {
         }
     }
     public static void main(String[] args) throws Exception {
-        // Initialise Ast Tree Builder and Comparison Worker.
-        AstFactory astFactory = new AstFactory();
-        Worker worker = new Worker();
 
-        // Build AST from json files
         String fileName = "src/main/resources/json/student8599.json";
         String fileName2 = "src/main/resources/json/student4473.json";
-        AbstractSyntaxTree ast1= astFactory.makeAstFromJsonFile(fileName);
-        AbstractSyntaxTree ast2= astFactory.makeAstFromJsonFile(fileName2);
+        String json = readFileAsString(fileName);
+        String json2 = readFileAsString(fileName2);
+        try {
+            Algorithm algo = new Algorithm();
+            AstFactory astFactory = new AstFactory();
 
-        // Print similarity score
-        System.out.println( "Similarity score: " + worker.compareBreadthWise(ast1, ast2));
+            // System.out.println("=============================================");
+            // HashMap<Integer, String> hm = algo.traverseWithLevels(new HashMap <Integer, String>(), ast.getRoot(), 0);
+            // System.out.println(hm);
 
+            JsonNode node = parse(json);
+            AbstractSyntaxTree ast1= astFactory.makeAst(node);
+            LinkedList<String> list = ast1.toList();
+            HashMap<Integer, String> hm1 = algo.traverseWithLevels(new HashMap <Integer, String>(), ast1.getRoot(), 0);
+
+            JsonNode node2 = parse(json2);
+            AbstractSyntaxTree ast2= astFactory.makeAst(node2);
+            LinkedList<String> list2 = ast2.toList();
+            HashMap<Integer, String> hm2 = algo.traverseWithLevels(new HashMap <Integer, String>(), ast2.getRoot(), 0);
+            Worker worker = new Worker();
+            System.out.println( "Similarity score: " + worker.compare(ast1, ast2));
+            System.out.println(hm1);
+            System.out.println(hm2);
+        } catch (IOException e){}
         // File[] files = new File("src/main/resources/json").listFiles();
 
         // for (File file : files) {
