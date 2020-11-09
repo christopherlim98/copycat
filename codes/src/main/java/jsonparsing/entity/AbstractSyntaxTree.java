@@ -78,15 +78,22 @@ public class AbstractSyntaxTree {
         }
     }
 
-    public Node returnRoot(){
-        return root;
+    public void printTreePostOrder(){
+        for (Node n : postorder()){
+            System.out.println("Children number: " + n.getChildCount() + ", content: " + n.getContent());
+        }
     }
 
-    public int getChildrenCount(){
+    public int getChildrenCount(Node root){
         int count = 0;
-        for (Node n : preorder()){
+        for (Node n : preorder(root)){
             count++;
         }
         return count;
+    }
+
+
+    public Node returnRoot(){
+        return root;
     }
 }
