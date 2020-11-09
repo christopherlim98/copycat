@@ -5,13 +5,14 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 
 import jsonparsing.entity.AbstractSyntaxTree;
 import jsonparsing.entity.Node;
+import jsonparsing.constants.Constants;
 
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 
 public class JsonToTree {
-    public static AbstractSyntaxTree traverse(JsonNode root, AbstractSyntaxTree ast, Node parent){
+    public static Set<String> set = new HashSet<>(Arrays.asList(Constants.TYPES));
+    public static AbstractSyntaxTree parse(JsonNode root, AbstractSyntaxTree ast, Node parent){
         if(root.isObject()){
             // base case :
             processNode(root, ast, parent);
@@ -27,26 +28,31 @@ public class JsonToTree {
         ArrayNode arrayNode = (ArrayNode) root;
         for(int i = 0; i < arrayNode.size(); i++) {
             JsonNode arrayElement = arrayNode.get(i);
-            traverse(arrayElement, ast, parent);
+            parse(arrayElement, ast, parent);
         }
         return ast;
     }
 
     public static AbstractSyntaxTree processNode(JsonNode root, AbstractSyntaxTree ast, Node parent){
         JsonNode children= root.get("children");
-
         // Insert into tree
         Node node = Node.fromJsonNode(parent, root);
         if (parent == null){
             ast.addRoot(node);
         } else {
-            ast.addChild(parent, node);
+
+            if (set.contains(node.getType())){
+                ast.addChild(parent, node);
+            }else{
+                parse(children, ast, parent);
+            }
+
         }
 
         // Continue traversing Json
         if (children != null){
             parent = node;
-            traverse(children, ast, parent);
+            parse(children, ast, parent);
         }
         return ast;
     }

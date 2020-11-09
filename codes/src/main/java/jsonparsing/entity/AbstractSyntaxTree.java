@@ -1,12 +1,21 @@
 package jsonparsing.entity;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+
+import jsonparsing.util.Algorithm;
 
 public class AbstractSyntaxTree {
     private Node root = null;
     private int size;
 
+    public LinkedList<String> toList (){
+        Algorithm algorithm = new Algorithm();
+        LinkedList<String> list = new LinkedList<String>();
+        algorithm.traverse(list, root);
+        return list;
+    }
 
     public void addRoot(Node root) throws IllegalArgumentException{
         if (root != null){
@@ -14,6 +23,10 @@ public class AbstractSyntaxTree {
         } else {
             throw new IllegalArgumentException("Tree already has a root");
         }
+    }
+
+    public Node getRoot(){
+        return this.root;
     }
 
     public void addChild(Node parent, Node child ){
@@ -36,10 +49,44 @@ public class AbstractSyntaxTree {
             preorderSubtree(root, snapshot);   // fill the snapshot recursively
         return snapshot;
     }
+
+    public Iterable<Node> preorder(Node root) {
+        // Find the preorder for a specified root/sub root node.
+        List<Node> snapshot = new ArrayList<>();
+        if (!root.children().isEmpty()){
+            preorderSubtree(root, snapshot);   // fill the snapshot recursively
+        }
+        return snapshot;
+    }
+
+    private void postorderSubtree(Node p, List<Node> snapshot) {
+        for (Node c : p.children())
+          postorderSubtree(c, snapshot);
+        snapshot.add(p);                       // for postorder, we add position p after exploring subtrees
+      }
+
+    public Iterable<Node> postorder() {
+        List<Node> snapshot = new ArrayList<>();
+        if (!isEmpty())
+          postorderSubtree(root, snapshot);   // fill the snapshot recursively
+        return snapshot;
+    }
+
     public void printTree(){
         for (Node n : preorder()){
             System.out.println("Children number: " + n.getChildCount() + ", content: " + n.getContent());
         }
     }
 
+    public Node returnRoot(){
+        return root;
+    }
+
+    public int getChildrenCount(){
+        int count = 0;
+        for (Node n : preorder()){
+            count++;
+        }
+        return count;
+    }
 }

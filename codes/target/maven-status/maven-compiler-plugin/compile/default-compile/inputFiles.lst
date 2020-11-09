@@ -1,12 +1,18 @@
-/Users/chris/Desktop/Chris/SMU/Y2S1/CS201/grp proj/proj/CS201_G2T8/codes/src/main/java/jsonparsing/util/SetHash.java
-/Users/chris/Desktop/Chris/SMU/Y2S1/CS201/grp proj/proj/CS201_G2T8/codes/src/main/java/jsonparsing/parser/JsonToTree.java
-/Users/chris/Desktop/Chris/SMU/Y2S1/CS201/grp proj/proj/CS201_G2T8/codes/src/main/java/jsonparsing/copycat/Worker.java
-/Users/chris/Desktop/Chris/SMU/Y2S1/CS201/grp proj/proj/CS201_G2T8/codes/src/main/java/jsonparsing/util/Algorithm.java
-/Users/chris/Desktop/Chris/SMU/Y2S1/CS201/grp proj/proj/CS201_G2T8/codes/src/main/java/jsonparsing/util/QuickAndDirtyAlgorithm.java
-/Users/chris/Desktop/Chris/SMU/Y2S1/CS201/grp proj/proj/CS201_G2T8/codes/src/main/java/jsonparsing/JsonTestMain.java
-/Users/chris/Desktop/Chris/SMU/Y2S1/CS201/grp proj/proj/CS201_G2T8/codes/src/main/java/jsonparsing/util/SlowAndAccurateHash.java
-/Users/chris/Desktop/Chris/SMU/Y2S1/CS201/grp proj/proj/CS201_G2T8/codes/src/main/java/jsonparsing/copycat/Hasher.java
-/Users/chris/Desktop/Chris/SMU/Y2S1/CS201/grp proj/proj/CS201_G2T8/codes/src/main/java/jsonparsing/parser/Json.java
-/Users/chris/Desktop/Chris/SMU/Y2S1/CS201/grp proj/proj/CS201_G2T8/codes/src/main/java/jsonparsing/entity/Node.java
-/Users/chris/Desktop/Chris/SMU/Y2S1/CS201/grp proj/proj/CS201_G2T8/codes/src/main/java/jsonparsing/entity/AbstractSyntaxTree.java
-/Users/chris/Desktop/Chris/SMU/Y2S1/CS201/grp proj/proj/CS201_G2T8/codes/src/main/java/jsonparsing/util/OrderHash.java
+/Users/johnteo/Documents/GitHub/CS201_G2T8/codes/src/main/java/jsonparsing/util/JaroWinkler.java
+/Users/johnteo/Documents/GitHub/CS201_G2T8/codes/src/main/java/jsonparsing/util/OrderHash.java
+/Users/johnteo/Documents/GitHub/CS201_G2T8/codes/src/main/java/jsonparsing/constants/Constants.java
+/Users/johnteo/Documents/GitHub/CS201_G2T8/codes/src/main/java/jsonparsing/entity/AbstractSyntaxTree.java
+/Users/johnteo/Documents/GitHub/CS201_G2T8/codes/src/main/java/jsonparsing/copycat/Worker.java
+/Users/johnteo/Documents/GitHub/CS201_G2T8/codes/src/main/java/jsonparsing/parser/Json.java
+/Users/johnteo/Documents/GitHub/CS201_G2T8/codes/src/main/java/jsonparsing/util/QuickAndDirtyAlgorithm.java
+/Users/johnteo/Documents/GitHub/CS201_G2T8/codes/src/main/java/jsonparsing/parser/AstFactory.java
+/Users/johnteo/Documents/GitHub/CS201_G2T8/codes/src/main/java/jsonparsing/util/Jaro.java
+/Users/johnteo/Documents/GitHub/CS201_G2T8/codes/src/main/java/jsonparsing/util/JaroWinkler2.java
+/Users/johnteo/Documents/GitHub/CS201_G2T8/codes/src/main/java/jsonparsing/copycat/Hasher.java
+/Users/johnteo/Documents/GitHub/CS201_G2T8/codes/src/main/java/jsonparsing/util/Algorithm.java
+/Users/johnteo/Documents/GitHub/CS201_G2T8/codes/src/main/java/jsonparsing/parser/JsonToTree.java
+/Users/johnteo/Documents/GitHub/CS201_G2T8/codes/src/main/java/jsonparsing/copycat/MerkleTree.java
+/Users/johnteo/Documents/GitHub/CS201_G2T8/codes/src/main/java/jsonparsing/util/SetHash.java
+/Users/johnteo/Documents/GitHub/CS201_G2T8/codes/src/main/java/jsonparsing/entity/Node.java
+/Users/johnteo/Documents/GitHub/CS201_G2T8/codes/src/main/java/jsonparsing/util/SlowAndAccurateHash.java
+/Users/johnteo/Documents/GitHub/CS201_G2T8/codes/src/main/java/jsonparsing/JsonTestMain.java
