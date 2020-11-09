@@ -84,9 +84,9 @@ public class AbstractSyntaxTree {
         }
     }
 
-    public int getChildrenCount(Node root){
+    public int getChildrenCount(){
         int count = 0;
-        for (Node n : preorder(root)){
+        for (Node n : preorder()){
             count++;
         }
         return count;
