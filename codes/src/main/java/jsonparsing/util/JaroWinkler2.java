@@ -6,7 +6,6 @@ public class JaroWinkler2 {
     private static final double DEFAULT_THRESHOLD = 0.7;
     private static final int THREE = 3;
     private static final double JW_COEF = 0.1;
-    private static final double threshold;
 
     /**
      * Returns the current value of the threshold used for adding the Winkler
@@ -15,7 +14,7 @@ public class JaroWinkler2 {
      * @return the current value of the threshold
      */
     public static double getThreshold() {
-        return threshold;
+        return DEFAULT_THRESHOLD;
     }
 
     /**
