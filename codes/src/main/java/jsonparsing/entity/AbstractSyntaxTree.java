@@ -1,6 +1,7 @@
 package jsonparsing.entity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,6 +16,11 @@ public class AbstractSyntaxTree {
         LinkedList<String> list = new LinkedList<String>();
         algorithm.traverse(list, root);
         return list;
+    }
+
+    public HashMap<Integer, String> toHashMap (){
+        Algorithm algorithm = new Algorithm();
+        return algorithm.traverseWithLevels(new HashMap <Integer, String>(), root, 0);
     }
 
     public void addRoot(Node root) throws IllegalArgumentException{

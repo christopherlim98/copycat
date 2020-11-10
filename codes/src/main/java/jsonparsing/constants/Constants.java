@@ -30,4 +30,40 @@ public class Constants {
         put("InitDeclaratorList", "q");
         put("Declaration", "r");
     }};
+
+
+    public static Map<Character, Integer> HASHWEIGHTS =new HashMap<Character, Integer>() {{
+        put('a', 1);
+        put('b', 34);
+        put('c', 21);
+        put('d', 2);
+        put('e', 8);
+        put('f', 3);
+        put('g', 34);
+        put('h', 34);
+        put('i', 21);
+        put('j', 21);
+        put('k', 1);
+        put('l', 13);
+        put('m', 13);
+        put('n', 8);
+        put('o', 5);
+        put('p', 21);
+        put('q', 34);
+        put('r', 34);
+    }};
+
+     /**
+         * varying sensitivity level / define similarity threshold
+         * in order of importance:
+         * FunctionDefinition (Self-defined Method)
+         * IterationStatement (Logic calls like do/while/for)
+         * Expression/ArithmeticExpression/PostfixExpression (Method calls like printf)/ ArgumentExpressionList
+         * ParameterList/ParameterDeclaration/DeclarationSpecifier/TypeSpecifier (Argument)
+         * DeclarationSpecifier/TypeSpecifier
+         * ----------
+         * Declarator/DirectDeclarator
+         * TranslationUnit
+         * Identifier
+         */
 }
