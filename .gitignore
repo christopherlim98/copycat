@@ -1,6 +1,7 @@
-C2json/
+c2json/
 resources/
 target/
+codes/target/
 */.idea/**
 data/.DS_Store
 .DS_Store
