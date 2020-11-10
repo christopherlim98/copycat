@@ -2,10 +2,10 @@ package jsonparsing.copycat;
 
 import java.util.*;
 
-import info.debatty.java.stringsimilarity.JaroWinkler;
 import jsonparsing.entity.AbstractSyntaxTree;
 import jsonparsing.util.Algorithm;
-// import jsonparsing.util.JaroWinkler;
+import jsonparsing.util.JaroWinkler;
+import jsonparsing.util.JaroWinklerJob;
 
 public class Worker {
     public double compare(AbstractSyntaxTree ast1, AbstractSyntaxTree ast2){
@@ -29,9 +29,9 @@ public class Worker {
         double score = 0.0;
         int count = 1;
         for (Integer key : ks1){
-            JaroWinkler jw = new JaroWinkler();
-            // score += jw.compute(hm1.get(key),hm2.get(key));
-            score += jw.similarity(hm1.get(key),hm2.get(key));
+            JaroWinklerJob jw = new JaroWinklerJob();
+            score += jw.compute(hm1.get(key),hm2.get(key));
+            // score += jw.similarity(hm1.get(key),hm2.get(key));
             count++;
         }
 

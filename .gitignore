@@ -1,5 +1,5 @@
 c2json/
-resources/
+codes/src/main/resources/
 target/
 codes/target/
 */.idea/**
