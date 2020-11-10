@@ -37,11 +37,11 @@ public class JsonToTree {
         JsonNode children= root.get("children");
         // Insert into tree
         Node node = Node.fromJsonNode(parent, root);
+        String type = node.getType();
         if (parent == null){
             ast.addRoot(node);
         } else {
-
-            if (set.contains(node.getType())){
+            if (set.contains(type)){
                 ast.addChild(parent, node);
             }else{
                 parse(children, ast, parent);

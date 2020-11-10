@@ -36,6 +36,8 @@ public class JohnTest {
         // AbstractSyntaxTree ast2= astFactory.makeAstFromJsonFile(fileName2);
 
         // System.out.println("====================");
+        // private int totalChildren = 0;
+        // int levels = 1;
         Node root = ast1.returnRoot();
         Node root2 = ast2.returnRoot();
         Deque<Node> listOfNodes = new ArrayDeque<>();
@@ -57,7 +59,7 @@ public class JohnTest {
         // System.out.println("Number of nodes that are similar in total:");
         // System.out.println((totalChildren - test) + " / " + (totalChildren + measurement));
         // System.out.println("================================");
-        System.out.println((totalChildren - test) * 100/(float)(totalChildren + measurement) + "% in similarity!");
+        // System.out.println((totalChildren - test) * 100/(float)(totalChildren + measurement) + "% in similarity!");
         // System.out.println();
         // System.out.println("================================");
         return (totalChildren - test) * 100/(float)(totalChildren + measurement);

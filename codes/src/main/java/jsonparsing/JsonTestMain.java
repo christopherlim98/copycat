@@ -1,9 +1,10 @@
 package jsonparsing;
 
 import jsonparsing.copycat.Worker;
+import jsonparsing.copycat.WorkerJob;
 import jsonparsing.entity.AbstractSyntaxTree;
 import jsonparsing.parser.AstFactory;
-import java.io.FileWriter; 
+import java.io.FileWriter;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
@@ -12,56 +13,68 @@ import java.util.*;
 
 public class JsonTestMain {
 
-    public static void main(String[] args) throws Exception {
-        // Initialise Ast Tree Builder and Comparison Worker.
-        AstFactory astFactory = new AstFactory();
-        Worker worker = new Worker();
-        JohnTest johnTest = new JohnTest();
+    private static String pathRoot = "src/main/resources/z1/";
 
-        // CHange the output file name here
-        FileWriter fstream = new FileWriter("resultA2016Z5Z1(SetWise).txt");
-        BufferedWriter fileWriter = new BufferedWriter(fstream);
+    private static String fileOutput = "A16Z1Z1Snapshots.txt";
+    public static void main(String[] args){
+        // Initialise Ast Tree Builder and Comparison Worker.
 
         // Get an array of all the file names in resources
-        File[] files = new File("src/main/resources/json").listFiles();
-        Set<String> plagiarisedSet = new HashSet<String>();
-        // Complexity O((n^2)/2)
-        for (int i = 0; i<files.length;i++)  {
-            String fileName1 =files[i].getName(); 
+        File[] files = new File(pathRoot).listFiles((dir, name) -> !name.equals(".DS_Store"));
+        ArrayList<AbstractSyntaxTree> astList = new ArrayList<AbstractSyntaxTree>();
+        HashMap<AbstractSyntaxTree, String> astStudentMap = new HashMap<>();
 
-            String pathName1 = "src/main/resources/json/"+ fileName1; 
-            AbstractSyntaxTree ast1= astFactory.makeAstFromJsonFile(pathName1);
-            for (int u = i+1; u<files.length;u++)  {
-                String fileName2 =files[u].getName();
-           
-               
-                if (!plagiarisedSet.contains(fileName2)  && !fileName2.equals(fileName1)  ){
-                    String pathName2 = "src/main/resources/json/"+ fileName2; 
-                    AbstractSyntaxTree ast2= astFactory.makeAstFromJsonFile(pathName2);
-                    // Chris's
-                    // double score = worker.compareBreadthWise(ast1, ast2);
-                    //John's
-                    double score = johnTest.compareSetWise(ast1, ast2);
+        // Generate AstSets
+        generateAstSet(files,  astList, astStudentMap);
+
+        // Compare Asts pair-wise
+        compareAsts(astList, astStudentMap);
+
+    }
+    
 
 
-                    if (score > 70){
-                        System.out.println("This are the files used : " + fileName1 + " ," + fileName2);
-                        System.out.println( "Similarity score: " + score);
-                        fileWriter.write(fileName1+" , "+ fileName2 + " , " + score);
-                        fileWriter.newLine();
-                        
-                    }
+    public static void generateAstSet(File[] files, ArrayList<AbstractSyntaxTree> astList,
+        HashMap<AbstractSyntaxTree, String> astStudentMap){
+        // Complexity of O(n) to build all trees from their files
+        AstFactory astFactory = new AstFactory();
+        for (int i=0; i < files.length; i++){
+            String fileName =files[i].getName();
+            String pathName = pathRoot + fileName;
 
-                }
-                
-
-            }
-            plagiarisedSet.add(fileName1);
-
+            // Complexity of O(n) because we are parsing from JSON
+            // to AST node by node
+            AbstractSyntaxTree ast= astFactory.makeAstFromJsonFile(pathName);
+            astStudentMap.put(ast, fileName);
+            astList.add(ast);
         }
-        fileWriter.close();
+    }
 
+    public static void compareAsts(ArrayList<AbstractSyntaxTree> astList,
+                                    HashMap<AbstractSyntaxTree, String> astStudentMap){
+        Worker worker = new Worker();
+        // CHange the output file name here
 
-
+        try {
+            // Complexity O((n^2)/2)
+            // Compare files pair wise
+            FileWriter fstream = new FileWriter(fileOutput);
+            BufferedWriter fileWriter = new BufferedWriter(fstream);
+            for (int i = 0; i < astList.size(); i++)  {
+                AbstractSyntaxTree ast1 = astList.get(i);
+                for (int j = i + 1; j < astList.size(); j++){
+                    AbstractSyntaxTree ast2 = astList.get(j);
+                    double score = worker.compareSnapshots(ast1, ast2);
+                    if (score > 40){
+                        System.out.println( "Similarity score: " + score + " , " + astStudentMap.get(ast1) + " , " +astStudentMap.get(ast2));
+                        fileWriter.write(astStudentMap.get(ast1)+" , "+ astStudentMap.get(ast2) + " , " + score);
+                        fileWriter.newLine();
+                    }
+                }
+            }
+            fileWriter.close();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
     }
 }
