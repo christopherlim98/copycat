@@ -1,6 +1,7 @@
 package jsonparsing;
 
 import jsonparsing.copycat.Worker;
+import jsonparsing.copycat.WorkerJob;
 import jsonparsing.entity.AbstractSyntaxTree;
 import jsonparsing.exception.JsonToTreeTimeoutException;
 import jsonparsing.parser.AstFactory;
@@ -31,6 +32,8 @@ public class JsonTestMain {
         compareAsts(astList, astStudentMap);
 
     }
+    
+
 
     public static void generateAstSet(File[] files, ArrayList<AbstractSyntaxTree> astList,
         HashMap<AbstractSyntaxTree, String> astStudentMap){

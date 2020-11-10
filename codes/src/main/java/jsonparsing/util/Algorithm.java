@@ -52,13 +52,7 @@ public class Algorithm{
         }
     }
 
-    public static int polynomialHash(String input) {
-        int h = 0;
-        for (int i=0;i<input.length();i++){
-            h^=((int) input.charAt(i));
-        }
-        return h;
-    }
+
 
     public static String hash(String type) {
         return Constants.HASHDICT.get(type);
