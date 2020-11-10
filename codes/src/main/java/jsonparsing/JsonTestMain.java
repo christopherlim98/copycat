@@ -13,12 +13,14 @@ import java.util.*;
 
 public class JsonTestMain {
 
+    private static String pathRoot = "src/main/resources/z1/";
+
+    private static String fileOutput = "A16Z1Z1Snapshots.txt";
     public static void main(String[] args){
         // Initialise Ast Tree Builder and Comparison Worker.
-        String fileOutput = "A16Z5Z1Snapshots.txt";
 
         // Get an array of all the file names in resources
-        File[] files = new File("src/main/resources/json").listFiles((dir, name) -> !name.equals(".DS_Store"));
+        File[] files = new File(pathRoot).listFiles((dir, name) -> !name.equals(".DS_Store"));
         ArrayList<AbstractSyntaxTree> astList = new ArrayList<AbstractSyntaxTree>();
         HashMap<AbstractSyntaxTree, String> astStudentMap = new HashMap<>();
 
@@ -26,7 +28,7 @@ public class JsonTestMain {
         generateAstSet(files,  astList, astStudentMap);
 
         // Compare Asts pair-wise
-        compareAsts(astList, astStudentMap, fileOutput);
+        compareAsts(astList, astStudentMap);
 
     }
     
@@ -38,7 +40,7 @@ public class JsonTestMain {
         AstFactory astFactory = new AstFactory();
         for (int i=0; i < files.length; i++){
             String fileName =files[i].getName();
-            String pathName = "src/main/resources/json/"+ fileName;
+            String pathName = pathRoot + fileName;
 
             // Complexity of O(n) because we are parsing from JSON
             // to AST node by node
@@ -49,8 +51,7 @@ public class JsonTestMain {
     }
 
     public static void compareAsts(ArrayList<AbstractSyntaxTree> astList,
-                                    HashMap<AbstractSyntaxTree, String> astStudentMap,
-                                    String fileOutput){
+                                    HashMap<AbstractSyntaxTree, String> astStudentMap){
         Worker worker = new Worker();
         // CHange the output file name here
 
@@ -71,6 +72,7 @@ public class JsonTestMain {
                     }
                 }
             }
+            fileWriter.close();
         } catch (IOException e){
             e.printStackTrace();
         }
