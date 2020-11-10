@@ -10,6 +10,13 @@ import java.io.IOException;
 import static jsonparsing.parser.Json.parse;
 
 public class AstFactory {
+    private static AstFactory instance;
+    public static AstFactory getInstance() {
+        if (instance == null) {
+            instance = new AstFactory();
+        }
+        return instance;
+    }
     public AbstractSyntaxTree makeAstFromJsonFile(String fileName){
         try{
             String json = readFileAsString(fileName);

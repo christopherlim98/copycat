@@ -52,7 +52,7 @@ public class Algorithm{
         }
     }
 
-    public static int polynomialHash(String input) {
+    public static int bitManipulationHash(String input) {
         int h = 0;
         for (int i=0;i<input.length();i++){
             h^=((int) input.charAt(i));
