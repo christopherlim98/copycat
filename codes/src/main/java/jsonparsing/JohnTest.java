@@ -7,10 +7,10 @@ import java.util.*;
 
 
 public class JohnTest {
-    private static int totalChildren = 0;
-    private static int levels = 1;
+    private int totalChildren = 0;
+    private int levels = 1;
 
-    public static double compareSetWise(AbstractSyntaxTree ast1, AbstractSyntaxTree ast2) throws Exception {
+    public double compareSetWise(AbstractSyntaxTree ast1, AbstractSyntaxTree ast2) throws Exception {
         // // Initialise Ast Tree Builder and Comparison Worker.
         // AstFactory astFactory = new AstFactory();
 
@@ -51,7 +51,7 @@ public class JohnTest {
     }
 
 
-    public static int traverse(Deque<Node> listOfNodes, Deque<Node> listOfNodes2, HashSet<String> hashset){
+    public int traverse(Deque<Node> listOfNodes, Deque<Node> listOfNodes2, HashSet<String> hashset){
         Deque<Node> storage = new ArrayDeque<>();
         Deque<Node> storage2 = new ArrayDeque<>();
         levels++;
