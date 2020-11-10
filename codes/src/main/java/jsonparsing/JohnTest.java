@@ -14,8 +14,8 @@ public class JohnTest {
         // // Initialise Ast Tree Builder and Comparison Worker.
         // AstFactory astFactory = new AstFactory();
 
-        // String fileName = "src/main/resources/json/student8599.json";
-        // String fileName2 = "src/main/resources/json/student2965.json";
+        String fileName = "src/main/resources/json/student9972.json";
+        String fileName2 = "src/main/resources/json/student5660.json";
 
         // AbstractSyntaxTree ast1= astFactory.makeAstFromJsonFile(fileName);
         // AbstractSyntaxTree ast2= astFactory.makeAstFromJsonFile(fileName2);
@@ -40,13 +40,12 @@ public class JohnTest {
         }
         // System.out.println(measurement);
 
-        // System.out.println("Number of nodes that are similar in total:");
-        // System.out.println((totalChildren - test) + " / " + (totalChildren + measurement));
-        // System.out.println("================================");
-        System.out.println((totalChildren - test) * 100/(float)(totalChildren + measurement) + "% in similarity!");
-        // System.out.println();
-        // System.out.println("================================");
-        return (totalChildren - test) * 100/(float)(totalChildren + measurement);
+        System.out.println("Number of nodes that are similar in total:");
+        System.out.println((totalChildren - test) + " / " + (totalChildren + measurement));
+        System.out.println("================================");
+        System.out.println(Math.pow((totalChildren - test),2) * 100/Math.pow((totalChildren + measurement),2) + "% in similarity!");
+        System.out.println();
+        System.out.println("================================");
 
     }
 
