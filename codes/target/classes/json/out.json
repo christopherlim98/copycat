@@ -215,7 +215,7 @@
                             ]
                         },
                         {
-                            "type": "Declaration",
+                            "type": "DeclarationSpecifiers",
                             "content": null,
                             "children_number": 2,
                             "children": [

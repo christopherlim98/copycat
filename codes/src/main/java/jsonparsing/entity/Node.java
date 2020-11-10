@@ -83,4 +83,8 @@ public class Node {
             return false;
         }
     }
+
+    // public int hashCode(){
+    //     retur 
+    // }
 }
