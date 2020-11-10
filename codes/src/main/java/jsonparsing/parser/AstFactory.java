@@ -13,6 +13,7 @@ public class AstFactory {
     public AbstractSyntaxTree makeAstFromJsonFile(String fileName){
         try{
             String json = readFileAsString(fileName);
+         
             JsonNode node = parse(json);
             return makeAst(node);
         }catch (IOException e){
@@ -24,6 +25,7 @@ public class AstFactory {
 
     public AbstractSyntaxTree makeAst(JsonNode node){
         AbstractSyntaxTree ast= new AbstractSyntaxTree();
+ 
         JsonToTree.parse(node, ast, null);
         return ast;
     }

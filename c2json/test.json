@@ -4,9 +4,9 @@
     "children_number": 1,
     "children": [
         {
-            "type": "Declaration",
+            "type": "FunctionDefinition",
             "content": null,
-            "children_number": 2,
+            "children_number": 3,
             "children": [
                 {
                     "type": "DeclarationSpecifiers",
@@ -15,35 +15,180 @@
                     "children": [
                         {
                             "type": "TypeSpecifier",
-                            "content": "INT",
+                            "content": "VOID",
                             "children_number": 0,
                             "children": null
                         }
                     ]
                 },
                 {
-                    "type": "InitDeclaratorList",
+                    "type": "Declarator",
                     "content": null,
                     "children_number": 1,
                     "children": [
                         {
-                            "type": "InitDeclarator",
+                            "type": "DirectDeclarator",
                             "content": null,
                             "children_number": 2,
                             "children": [
                                 {
-                                    "type": "Declarator",
+                                    "type": "Identifier",
+                                    "content": "Strcat",
+                                    "children_number": 0,
+                                    "children": null
+                                },
+                                {
+                                    "type": "DirectDeclaratorParen",
                                     "content": null,
                                     "children_number": 1,
                                     "children": [
                                         {
-                                            "type": "DirectDeclarator",
+                                            "type": "ParameterList",
                                             "content": null,
-                                            "children_number": 1,
+                                            "children_number": 2,
                                             "children": [
                                                 {
-                                                    "type": "Identifier",
-                                                    "content": "b",
+                                                    "type": "ParameterDeclaration",
+                                                    "content": null,
+                                                    "children_number": 2,
+                                                    "children": [
+                                                        {
+                                                            "type": "DeclarationSpecifiers",
+                                                            "content": null,
+                                                            "children_number": 1,
+                                                            "children": [
+                                                                {
+                                                                    "type": "TypeSpecifier",
+                                                                    "content": "CHAR",
+                                                                    "children_number": 0,
+                                                                    "children": null
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "Declarator",
+                                                            "content": null,
+                                                            "children_number": 2,
+                                                            "children": [
+                                                                {
+                                                                    "type": "Pointer",
+                                                                    "content": null,
+                                                                    "children_number": 0,
+                                                                    "children": null
+                                                                },
+                                                                {
+                                                                    "type": "DirectDeclarator",
+                                                                    "content": null,
+                                                                    "children_number": 1,
+                                                                    "children": [
+                                                                        {
+                                                                            "type": "Identifier",
+                                                                            "content": "s",
+                                                                            "children_number": 0,
+                                                                            "children": null
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "type": "ParameterDeclaration",
+                                                    "content": null,
+                                                    "children_number": 2,
+                                                    "children": [
+                                                        {
+                                                            "type": "DeclarationSpecifiers",
+                                                            "content": null,
+                                                            "children_number": 1,
+                                                            "children": [
+                                                                {
+                                                                    "type": "TypeSpecifier",
+                                                                    "content": "CHAR",
+                                                                    "children_number": 0,
+                                                                    "children": null
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "Declarator",
+                                                            "content": null,
+                                                            "children_number": 2,
+                                                            "children": [
+                                                                {
+                                                                    "type": "Pointer",
+                                                                    "content": null,
+                                                                    "children_number": 0,
+                                                                    "children": null
+                                                                },
+                                                                {
+                                                                    "type": "DirectDeclarator",
+                                                                    "content": null,
+                                                                    "children_number": 1,
+                                                                    "children": [
+                                                                        {
+                                                                            "type": "Identifier",
+                                                                            "content": "t",
+                                                                            "children_number": 0,
+                                                                            "children": null
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "BlockItemList",
+                    "content": null,
+                    "children_number": 3,
+                    "children": [
+                        {
+                            "type": "IterationStatement",
+                            "content": "WHILE",
+                            "children_number": 2,
+                            "children": [
+                                {
+                                    "type": "Expression",
+                                    "content": null,
+                                    "children_number": 1,
+                                    "children": [
+                                        {
+                                            "type": "ArithmeticalExpression",
+                                            "content": null,
+                                            "children_number": 2,
+                                            "children": [
+                                                {
+                                                    "type": "UnaryExpression",
+                                                    "content": null,
+                                                    "children_number": 2,
+                                                    "children": [
+                                                        {
+                                                            "type": "UnaryOperator",
+                                                            "content": null,
+                                                            "children_number": 0,
+                                                            "children": null
+                                                        },
+                                                        {
+                                                            "type": "Identifier",
+                                                            "content": "s",
+                                                            "children_number": 0,
+                                                            "children": null
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "type": "CharacterConstant",
+                                                    "content": "",
                                                     "children_number": 0,
                                                     "children": null
                                                 }
@@ -52,13 +197,203 @@
                                     ]
                                 },
                                 {
-                                    "type": "Initializer",
+                                    "type": "Expression",
                                     "content": null,
                                     "children_number": 1,
                                     "children": [
                                         {
-                                            "type": "IntegerConstant",
-                                            "content": "1",
+                                            "type": "PostfixExpression",
+                                            "content": null,
+                                            "children_number": 1,
+                                            "children": [
+                                                {
+                                                    "type": "Identifier",
+                                                    "content": "s",
+                                                    "children_number": 0,
+                                                    "children": null
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "type": "IterationStatement",
+                            "content": "FOR",
+                            "children_number": 4,
+                            "children": [
+                                null,
+                                {
+                                    "type": "Expression",
+                                    "content": null,
+                                    "children_number": 1,
+                                    "children": [
+                                        {
+                                            "type": "ArithmeticalExpression",
+                                            "content": null,
+                                            "children_number": 2,
+                                            "children": [
+                                                {
+                                                    "type": "UnaryExpression",
+                                                    "content": null,
+                                                    "children_number": 2,
+                                                    "children": [
+                                                        {
+                                                            "type": "UnaryOperator",
+                                                            "content": null,
+                                                            "children_number": 0,
+                                                            "children": null
+                                                        },
+                                                        {
+                                                            "type": "Identifier",
+                                                            "content": "t",
+                                                            "children_number": 0,
+                                                            "children": null
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "type": "CharacterConstant",
+                                                    "content": "",
+                                                    "children_number": 0,
+                                                    "children": null
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Expression",
+                                    "content": null,
+                                    "children_number": 2,
+                                    "children": [
+                                        {
+                                            "type": "PostfixExpression",
+                                            "content": null,
+                                            "children_number": 1,
+                                            "children": [
+                                                {
+                                                    "type": "Identifier",
+                                                    "content": "s",
+                                                    "children_number": 0,
+                                                    "children": null
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "PostfixExpression",
+                                            "content": null,
+                                            "children_number": 1,
+                                            "children": [
+                                                {
+                                                    "type": "Identifier",
+                                                    "content": "t",
+                                                    "children_number": 0,
+                                                    "children": null
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Expression",
+                                    "content": null,
+                                    "children_number": 1,
+                                    "children": [
+                                        {
+                                            "type": "AssignmentExpression",
+                                            "content": null,
+                                            "children_number": 3,
+                                            "children": [
+                                                {
+                                                    "type": "UnaryExpression",
+                                                    "content": null,
+                                                    "children_number": 2,
+                                                    "children": [
+                                                        {
+                                                            "type": "UnaryOperator",
+                                                            "content": null,
+                                                            "children_number": 0,
+                                                            "children": null
+                                                        },
+                                                        {
+                                                            "type": "Identifier",
+                                                            "content": "s",
+                                                            "children_number": 0,
+                                                            "children": null
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "type": "AssignmentOperator",
+                                                    "content": null,
+                                                    "children_number": 0,
+                                                    "children": null
+                                                },
+                                                {
+                                                    "type": "UnaryExpression",
+                                                    "content": null,
+                                                    "children_number": 2,
+                                                    "children": [
+                                                        {
+                                                            "type": "UnaryOperator",
+                                                            "content": null,
+                                                            "children_number": 0,
+                                                            "children": null
+                                                        },
+                                                        {
+                                                            "type": "Identifier",
+                                                            "content": "t",
+                                                            "children_number": 0,
+                                                            "children": null
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Expression",
+                            "content": null,
+                            "children_number": 1,
+                            "children": [
+                                {
+                                    "type": "AssignmentExpression",
+                                    "content": null,
+                                    "children_number": 3,
+                                    "children": [
+                                        {
+                                            "type": "UnaryExpression",
+                                            "content": null,
+                                            "children_number": 2,
+                                            "children": [
+                                                {
+                                                    "type": "UnaryOperator",
+                                                    "content": null,
+                                                    "children_number": 0,
+                                                    "children": null
+                                                },
+                                                {
+                                                    "type": "Identifier",
+                                                    "content": "s",
+                                                    "children_number": 0,
+                                                    "children": null
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "AssignmentOperator",
+                                            "content": null,
+                                            "children_number": 0,
+                                            "children": null
+                                        },
+                                        {
+                                            "type": "CharacterConstant",
+                                            "content": "",
                                             "children_number": 0,
                                             "children": null
                                         }
