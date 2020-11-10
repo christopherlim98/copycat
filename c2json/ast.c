@@ -281,18 +281,21 @@ char *ast_to_json(AST_NODE *root, int shift, char *tab, char *(*cont_to_str)(AST
     if (root->content.value)
     {
         char *tmp = (*cont_to_str)(root);
-        goto null_content;
-        // if (!tmp)
-        // {
-        //     goto null_content;
-        // }
+        
+        if (strcmp(type_str, "StringLiteral") == 0 ){
+            goto null_content;
+        }
+        if (!tmp)
+        {
+            goto null_content;
+        }
         // tmp = preprocessString(tmp);
         // int len = strlen(tmp);
         // char hex_str[(len * 2) + 1];
         // string2hexString(tmp, hex_str);
         // printf("ascii_str: %s\n", tmp);
         // printf("hex_str: %s\n", hex_str);
-        //content_str = wrap_by_quotes(tmp);
+        content_str = wrap_by_quotes(tmp);
     }
     else
     {

@@ -11,37 +11,21 @@ import java.util.*;
 
 
 public class JsonTestMain {
-    public static void showFiles(File[] files) {
-        System.out.println(files);
-        for (File file : files) {
-            if (file.isDirectory()) {
-                System.out.println("Directory: " + file.getName());
-                showFiles(file.listFiles()); // Calls same method again.
-            } else {
-                System.out.println( file.getName());
-            }
-        }
-    }
+
     public static void main(String[] args) throws Exception {
         // Initialise Ast Tree Builder and Comparison Worker.
         AstFactory astFactory = new AstFactory();
         Worker worker = new Worker();
+        JohnTest johnTest = new JohnTest();
 
-        //Build AST from json files
-        // String fileName = "src/main/resources/json/student1013.json";
-        // String fileName2 = "src/main/resources/json/student1029.json";
-        // AbstractSyntaxTree ast1= astFactory.makeAstFromJsonFile(fileName);
-        // AbstractSyntaxTree ast2= astFactory.makeAstFromJsonFile(fileName2);
-        // System.out.println(     worker.compareBreadthWise(ast1, ast2));
-
-        // Print similarity score
-        
-        FileWriter fstream = new FileWriter("resultA2016Z5Z1.txt");
+        // CHange the output file name here
+        FileWriter fstream = new FileWriter("resultA2016Z5Z1(SetWise).txt");
         BufferedWriter fileWriter = new BufferedWriter(fstream);
 
+        // Get an array of all the file names in resources
         File[] files = new File("src/main/resources/json").listFiles();
         Set<String> plagiarisedSet = new HashSet<String>();
-
+        // Complexity O((n^2)/2)
         for (int i = 0; i<files.length;i++)  {
             String fileName1 =files[i].getName(); 
 
@@ -54,9 +38,13 @@ public class JsonTestMain {
                 if (!plagiarisedSet.contains(fileName2)  && !fileName2.equals(fileName1)  ){
                     String pathName2 = "src/main/resources/json/"+ fileName2; 
                     AbstractSyntaxTree ast2= astFactory.makeAstFromJsonFile(pathName2);
-                    double score = worker.compareBreadthWise(ast1, ast2);
+                    // Chris's
+                    // double score = worker.compareBreadthWise(ast1, ast2);
+                    //John's
+                    double score = johnTest.compareSetWise(ast1, ast2);
 
-                    if (score > 0.70){
+
+                    if (score > 70){
                         System.out.println( "Similarity score: " + score);
                         fileWriter.write(fileName1+" , "+ fileName2 + " , " + score);
                         fileWriter.newLine();
