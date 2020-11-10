@@ -1,1 +1,9 @@
-student5660.json , student9972.json , 77.86259460449219
+student5660.json , student1013.json , 76.43724822998047
+student5660.json , student1132.json , 85.20548248291016
+student5660.json , student9972.json , 93.48314666748047
+student1013.json , student1029.json , 80.95069122314453
+student1013.json , student1132.json , 97.1805191040039
+student1013.json , student9972.json , 92.20503234863281
+student1029.json , student1132.json , 84.5213851928711
+student1029.json , student9972.json , 92.57959747314453
+student1132.json , student9972.json , 92.3692855834961

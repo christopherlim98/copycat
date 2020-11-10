@@ -45,6 +45,7 @@ public class JsonTestMain {
 
 
                     if (score > 70){
+                        System.out.println("This are the files used : " + fileName1 + " ," + fileName2);
                         System.out.println( "Similarity score: " + score);
                         fileWriter.write(fileName1+" , "+ fileName2 + " , " + score);
                         fileWriter.newLine();
