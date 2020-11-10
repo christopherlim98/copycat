@@ -7,20 +7,20 @@ import java.util.*;
 
 
 public class JohnTest {
-    private static int totalChildren = 0;
-    private static int levels = 1;
+    private int totalChildren = 0;
+    private int levels = 1;
 
-    public static void main(String[] args) throws Exception {
-        // Initialise Ast Tree Builder and Comparison Worker.
-        AstFactory astFactory = new AstFactory();
+    public double compareSetWise(AbstractSyntaxTree ast1, AbstractSyntaxTree ast2) throws Exception {
+        // // Initialise Ast Tree Builder and Comparison Worker.
+        // AstFactory astFactory = new AstFactory();
 
-        String fileName = "src/main/resources/json/student8599.json";
-        String fileName2 = "src/main/resources/json/student2965.json";
+        // String fileName = "src/main/resources/json/student8599.json";
+        // String fileName2 = "src/main/resources/json/student2965.json";
 
-        AbstractSyntaxTree ast1= astFactory.makeAstFromJsonFile(fileName);
-        AbstractSyntaxTree ast2= astFactory.makeAstFromJsonFile(fileName2);
+        // AbstractSyntaxTree ast1= astFactory.makeAstFromJsonFile(fileName);
+        // AbstractSyntaxTree ast2= astFactory.makeAstFromJsonFile(fileName2);
 
-        System.out.println("====================");
+        // System.out.println("====================");
         Node root = ast1.returnRoot();
         Node root2 = ast2.returnRoot();
         Deque<Node> listOfNodes = new ArrayDeque<>();
@@ -38,19 +38,20 @@ public class JohnTest {
         else{
             measurement = (sizeOfTree2 - sizeOfTree1)*2;
         }
-        System.out.println(measurement);
+        // System.out.println(measurement);
 
-        System.out.println("Number of nodes that are similar in total:");
-        System.out.println((totalChildren - test) + " / " + (totalChildren + measurement));
-        System.out.println("================================");
+        // System.out.println("Number of nodes that are similar in total:");
+        // System.out.println((totalChildren - test) + " / " + (totalChildren + measurement));
+        // System.out.println("================================");
         System.out.println((totalChildren - test) * 100/(float)(totalChildren + measurement) + "% in similarity!");
-        System.out.println();
-        System.out.println("================================");
+        // System.out.println();
+        // System.out.println("================================");
+        return (totalChildren - test) * 100/(float)(totalChildren + measurement);
 
     }
 
 
-    public static int traverse(Deque<Node> listOfNodes, Deque<Node> listOfNodes2, HashSet<String> hashset){
+    public int traverse(Deque<Node> listOfNodes, Deque<Node> listOfNodes2, HashSet<String> hashset){
         Deque<Node> storage = new ArrayDeque<>();
         Deque<Node> storage2 = new ArrayDeque<>();
         levels++;
