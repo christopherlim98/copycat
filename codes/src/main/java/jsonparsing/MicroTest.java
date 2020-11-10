@@ -2,6 +2,7 @@ package jsonparsing;
 
 import jsonparsing.copycat.Worker;
 import jsonparsing.entity.AbstractSyntaxTree;
+import jsonparsing.exception.JsonToTreeTimeoutException;
 import jsonparsing.parser.AstFactory;
 import java.io.FileWriter;
 import java.io.BufferedWriter;
@@ -22,16 +23,20 @@ public class MicroTest {
         String fileName2 = "src/main/resources/json/student2553.json";
 
         // Make Ast using astFactory
-        AbstractSyntaxTree ast1= astFactory.makeAstFromJsonFile(fileName);
-        AbstractSyntaxTree ast2= astFactory.makeAstFromJsonFile(fileName2);
-        double score = worker.compareSnapshots(ast1, ast2);
+        try{
+            AbstractSyntaxTree ast1= astFactory.makeAstFromJsonFile(fileName);
+            AbstractSyntaxTree ast2= astFactory.makeAstFromJsonFile(fileName2);
+            double score = worker.compareSnapshots(ast1, ast2);
 
-        // Get an array of all the file names in resources
-        System.out.println(ast1.toHashMap());
+            // Get an array of all the file names in resources
+            System.out.println(ast1.toHashMap());
 
-        System.out.println("==============================");
-        System.out.println(ast2.toHashMap());
-        System.out.println("Similarity score: " + score);
+            System.out.println("==============================");
+            System.out.println(ast2.toHashMap());
+            System.out.println("Similarity score: " + score);
+        } catch (JsonToTreeTimeoutException e){
+            System.out.println(e.getMessage());
+        }
 
     }
 }
