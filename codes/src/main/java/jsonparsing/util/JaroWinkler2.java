@@ -28,13 +28,12 @@ public class JaroWinkler2 {
         int t = mtl[1];
         // Length of common prefix at the start of the string
         int l = mtl[2];
-
         if (m == 0) {
             return 0.0;
         }
         // Calculates the Jaro similarity using formula
         double jaro = ((m / s1.length() + m / s2.length() + (m - t) / m)) / 3;
-        // Calculates the Jaro-Winkler similarity using formula if Jaro similarity < 0.7
+        // Calculates the Jaro-Winkler similarity using formula if Jaro similarity > 0.7
         double jaroWinkler = jaro;
         if (jaro > DEFAULT_THRESHOLD) {
             jaroWinkler = jaro + p * l * (1 - jaro);
@@ -43,7 +42,7 @@ public class JaroWinkler2 {
     }
 
     /**
-     * Return (1 - similarity)
+     * Return Jaro Winkler distance
      * @param s1 The first string to compare.
      * @param s2 The second string to compare.
      * @return (1 - similarity)
