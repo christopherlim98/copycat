@@ -59,7 +59,6 @@ public class Worker {
         int totalWeight = 0;
         for (int i = 0; i < charTotal.length ; i ++){
             char ch = (char)('a' + i);
-            System.out.println(ch);
             differences += Math.abs(charDiff[i]) * Constants.HASHWEIGHTS.get(ch);
             totalWeight += Math.abs(charTotal[i]) * Constants.HASHWEIGHTS.get(ch);
         }
@@ -84,7 +83,7 @@ public class Worker {
         return score/count * ((double)Math.pow(ks1.size(),2) /Math.pow(ks2.size(),2));
     }
 
-    public double compareBreadthWise(AbstractSyntaxTree ast1, AbstractSyntaxTree ast2){
+    public double compareSnapshots(AbstractSyntaxTree ast1, AbstractSyntaxTree ast2){
         // Returns a score from 0.0 - 1.0  on how similar the trees are
         double score = 0.0;
         Algorithm algo = new Algorithm();
@@ -100,7 +99,7 @@ public class Worker {
             score = compareKeySets(keySet1, keySet2,
             hm1, hm2);
         }
-        return score;
+        return 100 * score;
     }
 
 }
