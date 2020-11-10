@@ -1,10 +1,8 @@
-package jsonparsing.copycat;
-
-import jsonparsing.entity.AbstractSyntaxTree;
+package jsonparsing.util;
 
 public class Hasher {
-    public long hash(AbstractSyntaxTree root){
-        // recursively traverse the tree
+
+            // recursively traverse the tree
 
 
         /**
@@ -34,11 +32,28 @@ public class Hasher {
          *  -
          */
         //
-        long score = 0L;
 
-        return (long) score;
 
+        
+    // We care about order (Polynomial)
+    /* Experiments have shown that 33, 37, 39, and 41 are particularly good choices for a 
+    when working with character strings that are English words. 
+    In fact, in a list of over 50,000 English words, taking a to be 33, 37, 39, or 41 produced less than 7 collisions 
+    in each case.*/
+    public static int polynomialHash(String s) {
+        int h = 0;
+        int a = 27;
+        for (int i = 0 ; i < s.length() ; i++) {
+            h *= 27;
+            h += ((int)s.charAt(i));
+        }
+        return h;
     }
-
-
+    public static int bitManipulationHash(String input) {
+        int h = 0;
+        for (int i=0;i<input.length();i++){
+            h^=((int) input.charAt(i));
+        }
+        return h;
+    }
 }

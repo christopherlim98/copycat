@@ -18,32 +18,18 @@ public class WorkerJob {
         Set<String> set1 = new HashSet<>(Arrays.asList(parts1));
         Set<String> set2 = new HashSet<>(Arrays.asList(parts2));
 
-        JaroWinkler2 jaroWinkler2 = new JaroWinkler2();
-        System.out.println(jaroWinkler2.similarity(list1.getFirst(), list2.getFirst()));
-//        int ast1Root = algo.bitManipulationHash(list1.getFirst());
-//        int ast2Root = algo.bitManipulationHash(list2.getFirst());
+        JaroWinkler jaroWinkler2 = new JaroWinkler();
+        System.out.println("Jaro-Winkler:"+jaroWinkler2.similarity(list1.getFirst(), list2.getFirst()));
+//        Hasher hasher = new Hasher();
+//        int ast1Root = hasher.polynomialHash(list1.getFirst());
+////        int ast2Root = hasher.polynomialHash(list2.getFirst());
+////        System.out.println(ast1Root);
+////        System.out.println(ast2Root);
 
-//        for (String i : set1){
-//                System.out.println(i);
-//
-//        }
-//        for (String i : set2){
-//            System.out.println(i);
-//        }
-        //System.out.println(jaroWinklerJob.compute(list1.getFirst(), list2.getFirst()));
-//        System.out.println(jaro.compute(list1.getFirst(), list2.getFirst()));
         System.out.println(Levenshtein.distance(list1.getFirst(), list2.getFirst()));
         int lfd = Levenshtein.distance(list1.getFirst(), list2.getFirst());
         double ratio = ((double) lfd) / (Math.max(list1.getFirst().length(), list2.getFirst().length()));
-        System.out.println(1-ratio);
-//        System.out.println(ast1Root);
-//        System.out.println(list1);
-//        System.out.println(ast2Root);
-//        System.out.println(list2);
-//        System.out.println(set1.size());
-//        set1.removeAll(set2);
-//        System.out.println(set1);
-//        System.out.println(set1.size());
+        System.out.println("Levenstein:"+1-ratio);
 
         return ratio;
 
