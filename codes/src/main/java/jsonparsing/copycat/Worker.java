@@ -8,8 +8,10 @@ import jsonparsing.util.JaroWinkler;
 import jsonparsing.constants.Constants;
 
 public class Worker {
-    public double compare(AbstractSyntaxTree ast1, AbstractSyntaxTree ast2){
+    public double compareBreadthWise(AbstractSyntaxTree ast1, AbstractSyntaxTree ast2){
         // Returns a score from 0.0 - 1.0  on how similar the trees are
+
+        // PUT JOHN TEST HERE!!!!!!
         double score = 0.0;
         // for each sub tree: Hasher.hash()
 
@@ -29,7 +31,7 @@ public class Worker {
         double score = 0.0;
         int count = 0;
         for (Integer key : ks1){
-            score += compareInsensitiveToOrder(hm1.get(key), hm2.get(key));
+            score += compareInsensitiveToOrder(key, hm1.get(key), hm2.get(key));
             count++;
         }
 
@@ -39,7 +41,7 @@ public class Worker {
         return score/count * ((double)Math.pow(ks1.size(),2) /Math.pow(ks2.size(),2));
     }
 
-    public double compareInsensitiveToOrder(String s1, String s2){
+    public double compareInsensitiveToOrder(Integer level, String s1, String s2){
         double score = 0.0;
         int [] charDiff = new int[Constants.HASHDICT.size()];
         int [] charTotal = new int[Constants.HASHDICT.size()];
@@ -57,13 +59,24 @@ public class Worker {
         }
 
         int totalWeight = 0;
+        //int totalChars = 0;
         for (int i = 0; i < charTotal.length ; i ++){
             char ch = (char)('a' + i);
             differences += Math.abs(charDiff[i]) * Constants.HASHWEIGHTS.get(ch);
-            totalWeight += Math.abs(charTotal[i]) * Constants.HASHWEIGHTS.get(ch);
+            totalWeight += charTotal[i] * Constants.HASHWEIGHTS.get(ch);
+            //totalChars += charTotal[i];
         }
-        int similarity = totalWeight - differences;
-        score = (double)similarity/totalWeight;
+        int smaller = s1.length();
+        int longer = s2.length();
+        if (s1.length() > s2.length()){
+            smaller = s2.length();
+            longer = s1.length();
+        }
+        int similarity = totalWeight - differences ;
+        score = (double)(similarity * (smaller / longer)) /totalWeight;
+        // System.out.println("Score at level " + level +  " : " + score);
+
+        // System.out.println("Chars at level " + level +  " : " + similarity + ":" + differences);
         return score;
     }
 
