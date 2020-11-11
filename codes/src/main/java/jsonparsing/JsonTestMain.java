@@ -45,13 +45,13 @@ public class JsonTestMain {
 
             // Complexity of O(n) because we are parsing from JSON
             // to AST node by node
-            try {
+            // try {
                 AbstractSyntaxTree ast= astFactory.makeAstFromJsonFile(pathName);
                 astStudentMap.put(ast, fileName);
                 astList.add(ast);
-            } catch (JsonToTreeTimeoutException e){
-                System.out.println(e.getMessage());
-            }
+            // } catch (JsonToTreeTimeoutException e){
+            //     System.out.println(e.getMessage());
+            // }
 
             if (i % 20 == 0){
                 System.out.println("Built " + i + " trees...");

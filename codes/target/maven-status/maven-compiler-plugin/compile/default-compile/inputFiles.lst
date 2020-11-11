@@ -6,6 +6,7 @@
 /Users/johnteo/Documents/GitHub/CS201_G2T8/codes/src/main/java/jsonparsing/copycat/WorkerJob.java
 /Users/johnteo/Documents/GitHub/CS201_G2T8/codes/src/main/java/jsonparsing/util/Levenshtein.java
 /Users/johnteo/Documents/GitHub/CS201_G2T8/codes/src/main/java/jsonparsing/parser/AstFactory.java
+/Users/johnteo/Documents/GitHub/CS201_G2T8/codes/src/main/java/jsonparsing/exception/JsonToTreeTimeoutException.java
 /Users/johnteo/Documents/GitHub/CS201_G2T8/codes/src/main/java/jsonparsing/util/Algorithm.java
 /Users/johnteo/Documents/GitHub/CS201_G2T8/codes/src/main/java/jsonparsing/parser/JsonToTree.java
 /Users/johnteo/Documents/GitHub/CS201_G2T8/codes/src/main/java/jsonparsing/JohnTest.java
