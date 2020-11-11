@@ -23,7 +23,7 @@ public class MicroTest {
         String fileName2 = "src/main/resources/json/student2553.json";
 
         // Make Ast using astFactory
-        try{
+        // try{
             AbstractSyntaxTree ast1= astFactory.makeAstFromJsonFile(fileName);
             AbstractSyntaxTree ast2= astFactory.makeAstFromJsonFile(fileName2);
             double score = worker.compareSnapshots(ast1, ast2);
@@ -34,11 +34,9 @@ public class MicroTest {
             System.out.println("==============================");
             System.out.println(ast2.toHashMap());
             System.out.println("Similarity score: " + score);
-        } catch (JsonToTreeTimeoutException e){
-            System.out.println(e.getMessage());
-        } catch (IOException e){
-            System.out.println(e.getMessage() + " for " + fileName);
-        }
+        // } catch (JsonToTreeTimeoutException e){
+        //     System.out.println(e.getMessage());
+        // }
 
     }
 }

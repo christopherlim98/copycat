@@ -32,6 +32,7 @@ public class JsonTestMain {
 
         // Generate AstSets
         generateAstSet(files,  astList, astStudentMap);
+
         // Compare Asts pair-wise
         compareAsts(astList, astStudentMap);
 
@@ -51,7 +52,7 @@ public class JsonTestMain {
 
             // Complexity of O(n) because we are parsing from JSON
             // to AST node by node
-            try {
+            // try {
                 AbstractSyntaxTree ast= astFactory.makeAstFromJsonFile(pathName);
 
 

@@ -4,6 +4,7 @@ jsonparsing/constants/Constants$1.class
 jsonparsing/JohnTest.class
 jsonparsing/util/Levenshtein.class
 jsonparsing/util/JaroWinkler.class
+jsonparsing/exception/JsonToTreeTimeoutException.class
 jsonparsing/JsonTestMain.class
 jsonparsing/constants/Constants.class
 jsonparsing/util/Hasher.class

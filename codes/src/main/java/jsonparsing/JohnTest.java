@@ -7,72 +7,58 @@ import java.util.*;
 
 
 public class JohnTest {
-    private int totalChildren = 0;
 
     public static void main(String[] args) {
-         String fileName = "src/main/resources/json/studen5660.json";
-        String fileName2 = "src/main/resources/json/student9972.json";
+         // Initialise Ast Tree Builder and Comparison Worker.
+        String fileName = "src/main/resources/json/student1317.json";
+        String fileName2 = "src/main/resources/json/student1317.json";
         AstFactory astFactory = new AstFactory();
         AbstractSyntaxTree ast1= astFactory.makeAstFromJsonFile(fileName);
         AbstractSyntaxTree ast2= astFactory.makeAstFromJsonFile(fileName2);
         JohnTest johnTest = new JohnTest();
-
-        try{
-            System.out.println(johnTest.compareSetWise(ast1,ast2));
-
-        }
-    catch(Exception e){
-        System.out.println("fuck u");
-    }
-
+        System.out.println(johnTest.compareSetWise(ast1,ast2));  
     }
     public double compareSetWise(AbstractSyntaxTree ast1, AbstractSyntaxTree ast2) {
-        // // Initialise Ast Tree Builder and Comparison Worker.
-        // AstFactory astFactory = new AstFactory();
-
-        // String fileName = "src/main/resources/json/student8599.json";
-        // String fileName2 = "src/main/resources/json/student2965.json";
-
-        // AbstractSyntaxTree ast1= astFactory.makeAstFromJsonFile(fileName);
-        // AbstractSyntaxTree ast2= astFactory.makeAstFromJsonFile(fileName2);
-
-        // System.out.println("====================");
-        // private int totalChildren = 0;
-        // int levels = 1;
+        // Retrieving root nodes for both ast trees
         Node root = ast1.returnRoot();
         Node root2 = ast2.returnRoot();
+
+        // Constructing 2 deques to store the nodes in each level 
         Deque<Node> listOfNodes = new ArrayDeque<>();
         Deque<Node> listOfNodes2 = new ArrayDeque<>();
-        HashSet hashset = new HashSet<>();
+
+        // Constructing a hashMap to calculate the difference between the nodes in each level
+        HashMap<String, Integer> hashmap = new HashMap<>();
+
+        // Start off by adding the root node of both trees into the 2 deques
         listOfNodes.add(root);
         listOfNodes2.add(root2);
-        int test = traverse(listOfNodes,listOfNodes2, hashset);
-        int sizeOfTree1 = ast1.getChildrenCount();
-        int sizeOfTree2 = ast2.getChildrenCount();
-        double measurement = 0;
-        if(sizeOfTree1 > sizeOfTree2){
-            measurement = (sizeOfTree1 - sizeOfTree2)*2;
-        }
-        else{
-            measurement = (sizeOfTree2 - sizeOfTree1)*2;
-        }
-        // System.out.println(measurement);
-        // System.out.println("Number of nodes that are similar in total:");
-        // System.out.println((totalChildren - test) + " / " + (totalChildren + measurement));
-        // System.out.println("================================");
-        // System.out.println((totalChildren - test) * 100/(float)(totalChildren + measurement) + "% in similarity!");
-        // System.out.println();
-        // System.out.println("================================");
-        return (totalChildren - test) * 100/(float)(totalChildren + measurement);
 
+        // Computing the size of both trees through preorder traversal 
+        int children1 = ast1.getChildrenCount();
+        int children2 = ast2.getChildrenCount();
+        int size = children1 + children2;
+
+        // Recursive method to get a similarity index of either 1 / 0 
+        // 1 indicating plaglarism
+        // 2 indicating non-plaglarism 
+        int test = traverse(listOfNodes,listOfNodes2, hashmap, size, 0);
+        return test;
     }
 
 
-    public int traverse(Deque<Node> listOfNodes, Deque<Node> listOfNodes2, HashSet<String> hashset) {
+    public int traverse(Deque<Node> listOfNodes, Deque<Node> listOfNodes2, HashMap<String, Integer> hashmap,int size, int hashSetSize) {
+        // Storing the next level of children nodes of both tree into separate deques
         Deque<Node> storage = new ArrayDeque<>();
         Deque<Node> storage2 = new ArrayDeque<>();
 
+        // Store the number of total children in each level only
+        int totalChildren = 0;
+
+            // To check whether or not all the nodes in the deque has been popped out and processed
             while(listOfNodes.size() != 0 && listOfNodes2.size() != 0){
+
+                // Check if the children of each node is fully processed
                 int count = 0;
                 int count2 = 0;
                 List<Node> children = null;
@@ -80,42 +66,66 @@ public class JohnTest {
                 if(listOfNodes.size() != 0){
                     children = listOfNodes.pop().children();
                     while(children.size() != count ){
+                        // For each node, the children is retrieved and then the content is
+                        // stored in the HashMap to calculate the difference in nodes for each level
                         Node content = children.get(count);
                         storage.add(content);
-                        totalChildren++;
                         count++;
-                        if(hashset.contains(content.getType())){
-                            hashset.remove(content.getType());
+                        totalChildren++;
+                        if(hashmap.get(content.getType()) != null){
+                            // if the key is found in the first tree, the value will rewarded and +1
+                            hashmap.put(content.getType(), hashmap.get(content.getType()) + 1);
                         }
                         else{
-                            hashset.add(content.getType());
+                            hashmap.put(content.getType(), 1);
                         }
                     }
                 }
                 if(listOfNodes2.size() != 0){
                     children2 = listOfNodes2.pop().children();
                     while(children2.size() != count2 ){
+                        // For each node, the children is retrieved and then the content is
+                        // stored in the HashMap to calculate the difference in nodes for each level
                         Node content2 = children2.get(count2);
                         storage2.add(content2);
-                        totalChildren++;
                         count2++;
-                        if(hashset.contains(content2.getType())){
-                            hashset.remove(content2.getType());
+                        totalChildren++;
+                        if(hashmap.get(content2.getType()) != null){
+                            // if the key is found in the second tree, the value will penalised and -1
+                            hashmap.put(content2.getType(), hashmap.get(content2.getType()) - 1);
                         }
                         else{
-                            hashset.add(content2.getType());
+                            hashmap.put(content2.getType(), -1);
                         }
-
                     }
                 }
             }
-            if(storage.size() == 0 || storage2.size()== 0){
+
+            // Once hashmap is generated, the similarity index is computed by dividing the 
+            // similar children node against the total number of nodes in the tree
+            Set <String> setTest = hashmap.keySet();
+            Iterator<String> iter = setTest.iterator();
+            int currentSize = 0;
+
+            // this is to iterate through the hashmap to get all the nodes that are similar
+            while(iter.hasNext()){
+                // the value of the hashmap is always abs (|-1| = 1)
+                currentSize += Math.abs(hashmap.get((String)iter.next()));
+            }
+            // this is to keep the total count of children nodes that are similar as it goes down the tree
+            hashSetSize += totalChildren - currentSize;
+
+            // Constantly check as it go through each levels if the similarity index is above 0.8
+            // if it is, the function will return 1 to indicate plaglarism right away.
+            if(((double)hashSetSize)/ size  > 0.8){
                 return 1;
             }
-            return traverse(storage, storage2, new HashSet<String>()) ;
-
-
-
+            if(storage.size() == 0 || storage2.size()== 0){
+            // else, the function will return 0 to indicate non-plaglarism
+                return 0;
+            }
+            // function is recursively called at every level
+            return traverse(storage, storage2, new HashMap<String, Integer>(), size, hashSetSize);
     }
 
 
