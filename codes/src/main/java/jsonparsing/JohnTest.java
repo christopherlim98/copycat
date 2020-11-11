@@ -8,9 +8,25 @@ import java.util.*;
 
 public class JohnTest {
     private int totalChildren = 0;
-    private int levels = 1;
 
-    public double compareSetWise(AbstractSyntaxTree ast1, AbstractSyntaxTree ast2) throws Exception {
+    public static void main(String[] args) {
+         String fileName = "src/main/resources/json/studen5660.json";
+        String fileName2 = "src/main/resources/json/student9972.json";
+        AstFactory astFactory = new AstFactory();
+        AbstractSyntaxTree ast1= astFactory.makeAstFromJsonFile(fileName);
+        AbstractSyntaxTree ast2= astFactory.makeAstFromJsonFile(fileName2);
+        JohnTest johnTest = new JohnTest();
+
+        try{
+            System.out.println(johnTest.compareSetWise(ast1,ast2));
+
+        }
+    catch(Exception e){
+        System.out.println("fuck u");
+    }
+        
+    }
+    public double compareSetWise(AbstractSyntaxTree ast1, AbstractSyntaxTree ast2) {
         // // Initialise Ast Tree Builder and Comparison Worker.
         // AstFactory astFactory = new AstFactory();
 
@@ -41,7 +57,6 @@ public class JohnTest {
             measurement = (sizeOfTree2 - sizeOfTree1)*2;
         }
         // System.out.println(measurement);
-
         // System.out.println("Number of nodes that are similar in total:");
         // System.out.println((totalChildren - test) + " / " + (totalChildren + measurement));
         // System.out.println("================================");
@@ -53,51 +68,54 @@ public class JohnTest {
     }
 
 
-    public int traverse(Deque<Node> listOfNodes, Deque<Node> listOfNodes2, HashSet<String> hashset){
+    public int traverse(Deque<Node> listOfNodes, Deque<Node> listOfNodes2, HashSet<String> hashset) {
         Deque<Node> storage = new ArrayDeque<>();
         Deque<Node> storage2 = new ArrayDeque<>();
-        levels++;
-        while(listOfNodes.size() != 0 && listOfNodes2.size() != 0){
-            int count = 0;
-            int count2 = 0;
-            List<Node> children = null;
-            List<Node> children2 = null;
-            if(listOfNodes.size() != 0){
-                children = listOfNodes.pop().children();
-                while(children.size() != count ){
-                    Node content = children.get(count);
-                    storage.add(content);
-                    totalChildren++;
-                    count++;
-                    if(hashset.contains(content.getType())){
-                        hashset.remove(content.getType());
+        
+            while(listOfNodes.size() != 0 && listOfNodes2.size() != 0){
+                int count = 0;
+                int count2 = 0;
+                List<Node> children = null;
+                List<Node> children2 = null;
+                if(listOfNodes.size() != 0){
+                    children = listOfNodes.pop().children();
+                    while(children.size() != count ){
+                        Node content = children.get(count);
+                        storage.add(content);
+                        totalChildren++;
+                        count++;
+                        if(hashset.contains(content.getType())){
+                            hashset.remove(content.getType());
+                        }
+                        else{
+                            hashset.add(content.getType());
+                        }
                     }
-                    else{
-                        hashset.add(content.getType());
+                }
+                if(listOfNodes2.size() != 0){
+                    children2 = listOfNodes2.pop().children();
+                    while(children2.size() != count2 ){
+                        Node content2 = children2.get(count2);
+                        storage2.add(content2);
+                        totalChildren++;
+                        count2++;
+                        if(hashset.contains(content2.getType())){
+                            hashset.remove(content2.getType());
+                        }
+                        else{
+                            hashset.add(content2.getType());
+                        }
+    
                     }
                 }
             }
-            if(listOfNodes2.size() != 0){
-                children2 = listOfNodes2.pop().children();
-                while(children2.size() != count2 ){
-                    Node content2 = children2.get(count2);
-                    storage2.add(content2);
-                    totalChildren++;
-                    count2++;
-                    if(hashset.contains(content2.getType())){
-                        hashset.remove(content2.getType());
-                    }
-                    else{
-                        hashset.add(content2.getType());
-                    }
-
-                }
+            if(storage.size() == 0 || storage2.size()== 0){
+                return 1;
             }
-        }
-        if(storage.size() == 0 || storage2.size()== 0){
-            return 0;
-        }
-        return traverse(storage, storage2, new HashSet<String>()) + hashset.size() ;
+            return traverse(storage, storage2, new HashSet<String>()) ;
+        
+        
+        
     }
 
 
