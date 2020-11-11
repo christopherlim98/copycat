@@ -14,9 +14,10 @@ import java.util.*;
 
 public class JsonTestMain {
 
-    private static final String PATHROOT = "data/Z3/";
-    private static final String FILEOUTPUT = "A16Z1Z3Snapshots.txt";
+    private static final String PATHROOT = "data/Z1/";
+    private static final String FILEOUTPUT = "A16Z1Z1SnapshotsAlt.txt";
     private static final double THRESHOLD = 80;
+    private static List<String> filesNotProcessed = new ArrayList<>();
     public static void main(String[] args){
         // Initialise Ast Tree Builder and Comparison Worker.
 
@@ -27,12 +28,11 @@ public class JsonTestMain {
 
         // Generate AstSets
         generateAstSet(files,  astList, astStudentMap);
-
         // Compare Asts pair-wise
         compareAsts(astList, astStudentMap);
 
     }
-    
+
 
 
     public static void generateAstSet(File[] files, ArrayList<AbstractSyntaxTree> astList,
@@ -50,7 +50,9 @@ public class JsonTestMain {
                 astStudentMap.put(ast, fileName);
                 astList.add(ast);
             } catch (JsonToTreeTimeoutException e){
-                System.out.println(e.getMessage());
+                filesNotProcessed.add(fileName);
+            } catch (IOException e){
+                filesNotProcessed.add(fileName);
             }
 
             if (i % 20 == 0){
@@ -81,6 +83,8 @@ public class JsonTestMain {
                     }
                 }
             }
+            // Handle failed cases
+            fileWriter.write(filesNotProcessed.toString());
             fileWriter.close();
         } catch (IOException e){
             e.printStackTrace();

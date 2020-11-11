@@ -36,6 +36,8 @@ public class MicroTest {
             System.out.println("Similarity score: " + score);
         } catch (JsonToTreeTimeoutException e){
             System.out.println(e.getMessage());
+        } catch (IOException e){
+            System.out.println(e.getMessage() + " for " + fileName);
         }
 
     }

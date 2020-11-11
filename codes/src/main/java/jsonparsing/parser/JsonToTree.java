@@ -8,11 +8,27 @@ import jsonparsing.entity.Node;
 import jsonparsing.constants.Constants;
 
 import java.util.*;
+import java.util.concurrent.Callable;
 
 
-public class JsonToTree {
-    public static Set<String> set = new HashSet<>(Arrays.asList(Constants.TYPES));
-    public static AbstractSyntaxTree parse(JsonNode root, AbstractSyntaxTree ast, Node parent){
+public class JsonToTree implements Callable <AbstractSyntaxTree> {
+    private static Set<String> set = new HashSet<>(Arrays.asList(Constants.TYPES));
+    private JsonNode root;
+    private AbstractSyntaxTree ast;
+    private Node parent;
+
+    public JsonToTree(JsonNode root, AbstractSyntaxTree ast, Node parent){
+        this.root = root;
+        this.ast = ast;
+        this.parent = parent;
+    }
+
+    @Override
+    public AbstractSyntaxTree call() throws Exception {
+        return parse(root, ast, parent);
+    }
+
+    public AbstractSyntaxTree parse(JsonNode root, AbstractSyntaxTree ast, Node parent){
         if(root.isObject()){
             // base case :
             processNode(root, ast, parent);
@@ -23,7 +39,7 @@ public class JsonToTree {
         return ast;
     }
 
-    public static AbstractSyntaxTree processChildren(JsonNode root, AbstractSyntaxTree ast, Node parent){
+    public AbstractSyntaxTree processChildren(JsonNode root, AbstractSyntaxTree ast, Node parent){
         // Traverse children of JSON
         ArrayNode arrayNode = (ArrayNode) root;
         for(int i = 0; i < arrayNode.size(); i++) {
@@ -33,7 +49,7 @@ public class JsonToTree {
         return ast;
     }
 
-    public static AbstractSyntaxTree processNode(JsonNode root, AbstractSyntaxTree ast, Node parent){
+    public  AbstractSyntaxTree processNode(JsonNode root, AbstractSyntaxTree ast, Node parent){
         JsonNode children= root.get("children");
         // Insert into tree
         Node node = Node.fromJsonNode(parent, root);

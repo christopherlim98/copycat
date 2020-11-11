@@ -6,12 +6,9 @@ student6723.json , student6547.json , 100.0
 student1422.json , student2335.json , 100.0
 student8357.json , student1192.json , 100.0
 student7597.json , student4082.json , 100.0
-student1013.json , student1146.json , 40.07605992249407
-student9589.json , student3557.json , 46.046576859473106
 student5904.json , student7774.json , 100.0
 student2717.json , student8043.json , 100.0
 student5744.json , student2675.json , 100.0
-student1029.json , student2585.json , 70.0
 student1029.json , student5789.json , 100.0
 student5713.json , student4903.json , 100.0
 student3900.json , student7802.json , 100.0
@@ -38,8 +35,6 @@ student4237.json , student8797.json , 100.0
 student8794.json , student4415.json , 100.0
 student4471.json , student5915.json , 100.0
 student7820.json , student7507.json , 100.0
-student2585.json , student5789.json , 70.0
-student8599.json , student2965.json , 63.63636363636363
 student9388.json , student1581.json , 100.0
 student2142.json , student5961.json , 100.0
 student5957.json , student6550.json , 100.0
