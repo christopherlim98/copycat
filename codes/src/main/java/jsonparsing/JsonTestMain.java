@@ -5,19 +5,23 @@ import jsonparsing.copycat.WorkerJob;
 import jsonparsing.entity.AbstractSyntaxTree;
 import jsonparsing.exception.JsonToTreeTimeoutException;
 import jsonparsing.parser.AstFactory;
+
 import java.io.FileWriter;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 
 
 public class JsonTestMain {
 
-    private static final String PATHROOT = "data/Z1/";
-    private static final String FILEOUTPUT = "A16Z1Z1SnapshotsAlt.txt";
+    private static final String PATHROOT = "data/Z5/Z1";
+    private static final String FILEOUTPUT = "A16Z5Z1SnapshotsAlt.txt";
     private static final double THRESHOLD = 80;
-    private static List<String> filesNotProcessed = new ArrayList<>();
+    private static List<String> filesNotProcessed = new ArrayList<String>();
     public static void main(String[] args){
         // Initialise Ast Tree Builder and Comparison Worker.
 
@@ -30,6 +34,8 @@ public class JsonTestMain {
         generateAstSet(files,  astList, astStudentMap);
         // Compare Asts pair-wise
         compareAsts(astList, astStudentMap);
+
+
 
     }
 
@@ -47,6 +53,8 @@ public class JsonTestMain {
             // to AST node by node
             try {
                 AbstractSyntaxTree ast= astFactory.makeAstFromJsonFile(pathName);
+
+
                 astStudentMap.put(ast, fileName);
                 astList.add(ast);
             } catch (JsonToTreeTimeoutException e){
@@ -54,19 +62,16 @@ public class JsonTestMain {
             } catch (IOException e){
                 filesNotProcessed.add(fileName);
             }
-
             if (i % 20 == 0){
                 System.out.println("Built " + i + " trees...");
             }
+
         }
     }
 
     public static void compareAsts(ArrayList<AbstractSyntaxTree> astList,
                                     HashMap<AbstractSyntaxTree, String> astStudentMap){
         Worker worker = new Worker();
-        
-        // CHange the output file name here
-
         try {
             // Complexity O((n^2)/2)
             // Compare files pair wise
@@ -74,18 +79,24 @@ public class JsonTestMain {
             BufferedWriter fileWriter = new BufferedWriter(fstream);
             for (int i = 0; i < astList.size(); i++)  {
                 AbstractSyntaxTree ast1 = astList.get(i);
+
                 for (int j = i + 1; j < astList.size(); j++){
                     AbstractSyntaxTree ast2 = astList.get(j);
                     double score = worker.compareSnapshots(ast1, ast2);
                     if (score > THRESHOLD){
-                        System.out.println( "Similarity score: " + score + " , " + astStudentMap.get(ast1) + " , " +astStudentMap.get(ast2));
+                        // System.out.println( "Similarity score: " + score + " , " + astStudentMap.get(ast1) + " , " +astStudentMap.get(ast2));
                         fileWriter.write(astStudentMap.get(ast1)+" , "+ astStudentMap.get(ast2) + " , " + score);
                         fileWriter.newLine();
                     }
                 }
             }
+
             // Handle failed cases
+            fileWriter.write("=======================\n");
+            fileWriter.write("Files not processed: ");
             fileWriter.write(filesNotProcessed.toString());
+
+            // Close filewriter
             fileWriter.close();
         } catch (IOException e){
             e.printStackTrace();
