@@ -64,6 +64,7 @@ public class JsonTestMain {
     public static void compareAsts(ArrayList<AbstractSyntaxTree> astList,
                                     HashMap<AbstractSyntaxTree, String> astStudentMap){
         Worker worker = new Worker();
+        
         // CHange the output file name here
 
         try {

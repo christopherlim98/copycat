@@ -31,7 +31,8 @@ public class WorkerJob {
         double ratio = ((double) lfd) / (Math.max(list1.getFirst().length(), list2.getFirst().length()));
         System.out.println("Levenstein:" + (1-ratio));
 
-        return ratio;
+
+        return 1-ratio;
 
     }
 
