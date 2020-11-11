@@ -3,9 +3,16 @@ package jsonparsing.parser;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import jsonparsing.entity.AbstractSyntaxTree;
+import jsonparsing.exception.JsonToTreeTimeoutException;
+
 import static jsonparsing.parser.Json.readFileAsString;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import static jsonparsing.parser.Json.parse;
 
@@ -17,23 +24,31 @@ public class AstFactory {
         }
         return instance;
     }
-    public AbstractSyntaxTree makeAstFromJsonFile(String fileName){
-        try{
+    public AbstractSyntaxTree makeAstFromJsonFile(String fileName)
+        throws JsonToTreeTimeoutException, IOException{
             String json = readFileAsString(fileName);
-         
             JsonNode node = parse(json);
             return makeAst(node);
-        }catch (IOException e){
-            System.out.println("IO Error happened with file: " + fileName);
-            e.printStackTrace();
-            return null;
-        }
     }
 
-    public AbstractSyntaxTree makeAst(JsonNode node){
+    public AbstractSyntaxTree makeAst(JsonNode node) throws JsonToTreeTimeoutException{
         AbstractSyntaxTree ast= new AbstractSyntaxTree();
- 
-        JsonToTree.parse(node, ast, null);
-        return ast;
+        JsonToTree jsonToTree = new JsonToTree(node, ast, null);
+        Future<AbstractSyntaxTree> control
+                = Executors.newSingleThreadExecutor().submit(jsonToTree);
+        try {
+            ast = control.get(10, TimeUnit.SECONDS);
+            return ast;
+
+        } catch (TimeoutException ex) {
+            // 5 seconds expired, we cancel the job !!!
+            control.cancel(true);
+
+        } catch (InterruptedException ex) {
+
+        } catch (ExecutionException ex) {
+
+        }
+        throw new JsonToTreeTimeoutException("Failed to make tree");
     }
 }

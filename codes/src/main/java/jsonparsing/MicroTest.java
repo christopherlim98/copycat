@@ -19,23 +19,25 @@ public class MicroTest {
         Worker worker = new Worker();
 
         // Specify file name to be compared
-        String fileName = "src/main/resources/json/student9823.json";
-        String fileName2 = "src/main/resources/json/student2553.json";
+        String fileName = "src/main/resources/json/student1317.json";
+        String fileName2 = "src/main/resources/json/student1364.json";
 
         // Make Ast using astFactory
         try{
             AbstractSyntaxTree ast1= astFactory.makeAstFromJsonFile(fileName);
             AbstractSyntaxTree ast2= astFactory.makeAstFromJsonFile(fileName2);
-            double score = worker.compareSnapshots(ast1, ast2);
+            double score = worker.compareNaive(ast1, ast2);
 
             // Get an array of all the file names in resources
-            System.out.println(ast1.toHashMap());
+            // System.out.println(ast1.toHashMap());
 
             System.out.println("==============================");
-            System.out.println(ast2.toHashMap());
+            // System.out.println(ast2.toHashMap());
             System.out.println("Similarity score: " + score);
         } catch (JsonToTreeTimeoutException e){
             System.out.println(e.getMessage());
+        } catch (IOException e){
+            System.out.println(e.getMessage() + " for " + fileName);
         }
 
     }

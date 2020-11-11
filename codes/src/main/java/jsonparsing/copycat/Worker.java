@@ -74,10 +74,7 @@ public class Worker {
             longer = s1.length();
         }
         int similarity = totalWeight - differences ;
-        score = (double)(similarity * (smaller / longer)) /totalWeight;
-        // System.out.println("Score at level " + level +  " : " + score);
-
-        // System.out.println("Chars at level " + level +  " : " + similarity + ":" + differences);
+        score = (double)(similarity) /totalWeight;
         return score;
     }
 
