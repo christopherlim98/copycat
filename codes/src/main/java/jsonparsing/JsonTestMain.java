@@ -1,7 +1,7 @@
 package jsonparsing;
 
 import jsonparsing.copycat.Worker;
-import jsonparsing.copycat.WorkerJob;
+
 import jsonparsing.entity.AbstractSyntaxTree;
 import jsonparsing.exception.JsonToTreeTimeoutException;
 import jsonparsing.parser.AstFactory;
@@ -18,7 +18,7 @@ public class JsonTestMain {
     private static final String FILEOUTPUT = "A16Z1Z3Snapshots.txt";
     private static final double THRESHOLD = 80;
 
-    }
+    
     public static void main(String[] args){
         // Initialise Ast Tree Builder and Comparison Worker.
 
@@ -76,7 +76,8 @@ public class JsonTestMain {
                 AbstractSyntaxTree ast1 = astList.get(i);
                 for (int j = i + 1; j < astList.size(); j++){
                     AbstractSyntaxTree ast2 = astList.get(j);
-                    double score = worker.compareSnapshots(ast1, ast2);
+                    // double score = worker.compareSnapshots(ast1, ast2);
+                    double score = worker.compareNaive(ast1, ast2);
                     if (score > THRESHOLD){
                         System.out.println( "Similarity score: " + score + " , " + astStudentMap.get(ast1) + " , " +astStudentMap.get(ast2));
                         fileWriter.write(astStudentMap.get(ast1)+" , "+ astStudentMap.get(ast2) + " , " + score);
