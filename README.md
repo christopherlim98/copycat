@@ -17,7 +17,7 @@
 
 	=> Segregation of datasets into small, medium and large file sizes.
 
-#### "codes/helper" directory -> In aid to count the number of characters in each file
+#### "codes/helper" directory -> To aid in the count of the number of characters in each file
 
 	=> To perform EDA for the datasets.
 
@@ -37,15 +37,18 @@ mvn exec:java  -D"exec.mainClass"="jsonparsing.JsonTestMain"
 ```
 
 ## Usage for "c-to-json"
-for linux/ubuntu
+
+#### For linux/ubuntu
 ```
 cd c2json
 sh parse.sh
 ```
-Specify the c file you want to convert and its directory.
+Specify the c file you wish to convert and the directory it is found at..
 
-for windows
-download WSL 
+#### For windows
+```
+Download WSL
+```
 ## Contributing
 
 
