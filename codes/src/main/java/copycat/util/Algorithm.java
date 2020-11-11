@@ -9,6 +9,8 @@ public class Algorithm{
     public static Set<String> set = new HashSet<>(Arrays.asList(Constants.TYPES));
 
     public String traverse(LinkedList<String> list,Node root ){
+        // Post order traversal
+        
         String type = root.getType();
         if (root.children().isEmpty()){
             // Base case: no children
@@ -27,6 +29,9 @@ public class Algorithm{
     }
 
     public HashMap<Integer, String> traverseWithLevels(HashMap <Integer, String> map, Node root, Integer level){
+        // Transforms AST to a hashmap
+        // Each key corresponds to level
+        // Value is a string concatenation that corresponds to all nodes at that level.
         String type = root.getType();
         if (root.children().isEmpty()){
             // Base case: no children

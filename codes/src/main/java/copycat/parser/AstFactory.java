@@ -36,11 +36,13 @@ public class AstFactory {
         Future<AbstractSyntaxTree> control
                 = Executors.newSingleThreadExecutor().submit(jsonToTree);
         try {
+            // If tree takes too long to make, we cancel the operation
+            // This happens when the code is too long.
             ast = control.get(10, TimeUnit.SECONDS);
             return ast;
 
         } catch (TimeoutException ex) {
-            // 5 seconds expired, we cancel the job !!!
+            // 10 seconds expired, we cancel the job !!!
             control.cancel(true);
 
         } catch (InterruptedException ex) {

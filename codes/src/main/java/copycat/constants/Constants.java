@@ -35,7 +35,7 @@ public class Constants {
 
     /**
      * Contains the weights that we associate with the types
-     * We used frequency analysis to determine the weights
+     * We used frequency analysis to determine the inverted weights
      * More frequent types had lower weights
      * Less frequent types had higher weights to accentuate uniqueness.
      * Used fibonacci for the difference in weights, as fibonacci sequence highlights a 60% difference with each increment

@@ -5,7 +5,7 @@ import java.util.*;
 import copycat.entity.AbstractSyntaxTree;
 import copycat.entity.Node;
 
-public class Worker3 implements  WorkerFactory{
+public class ProgressiveWorker implements  WorkerFactory{
     @Override
     public double compare(AbstractSyntaxTree ast1, AbstractSyntaxTree ast2) {
         // Retrieving root nodes for both ast trees

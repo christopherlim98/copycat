@@ -1,9 +1,9 @@
 package copycat;
 
-import copycat.copycat.Worker;
+import copycat.copycat.SnapshotWorker;
 
-import copycat.copycat.Worker2;
-import copycat.copycat.Worker3;
+import copycat.copycat.NaiveWorker;
+import copycat.copycat.ProgressiveWorker;
 import copycat.copycat.WorkerFactory;
 import copycat.entity.AbstractSyntaxTree;
 import copycat.exception.JsonToTreeTimeoutException;
@@ -35,10 +35,13 @@ public class Application {
         while (userOption != 6){
             // Get user option
             userOption = getUserOption();
+
             // Start timer
             long startTime = System.nanoTime();
+
             processOptions(userOption);
-            // End timer
+
+            // End timer for performance measuring
             long endTime = System.nanoTime();
             long duration = (endTime - startTime);
             System.out.println("Time taken: " + duration / 1000000000.0 + " seconds\n=======================\n");
@@ -46,7 +49,8 @@ public class Application {
 
     }
 
-    public static void processOptions(int userOption){
+    // Process the options that the user inputted
+    private static void processOptions(int userOption){
         double threshold = THRESHOLD;
 
         // Initialise Ast Tree Builder and Comparison Worker.
@@ -74,12 +78,12 @@ public class Application {
         if (userOption == 2){
             // 2. Compare using naive comparison
             fileOutput += "Naive.txt";
-            worker = new Worker2();
+            worker = new NaiveWorker();
 
         }  else if (userOption == 3){
             // 3. Compare using naive progressive comparison
             fileOutput += "Progressive.txt";
-            worker = new Worker3();
+            worker = new ProgressiveWorker();
             // Progressive checks if it is 0 or 1,
             // so having a threshold above 0.0 is sufficient.
             threshold = 0.0;
@@ -87,7 +91,7 @@ public class Application {
         } else if (userOption == 4){
             // 4. Compare using naive snapshot comparison
             fileOutput += "Snapshot.txt";
-            worker = new Worker();
+            worker = new SnapshotWorker();
         }
         System.out.println("Comparing trees...");
         compareAsts(astList, astStudentMap, worker, threshold, fileOutput);
@@ -97,18 +101,18 @@ public class Application {
 
     public static void compareAll(){
         String fileOutput = FILEOUTPUT;
-        WorkerFactory worker = new Worker2();
+        WorkerFactory worker = new NaiveWorker();
         System.out.println("Comparing trees using naive comparison...");
         compareAsts(astList, astStudentMap, worker, THRESHOLD, fileOutput + "Naive.txt");
         printLineBreak();
 
-        worker = new Worker3();
+        worker = new ProgressiveWorker();
         System.out.println("Comparing trees using progressive comparison...");
         compareAsts(astList, astStudentMap, worker, 0.0, fileOutput + "Progressive.txt" );
         printLineBreak();
 
         fileOutput += "Snapshot.txt";
-        worker = new Worker();
+        worker = new SnapshotWorker();
         System.out.println("Comparing trees using snapshot comparison...");
         compareAsts(astList, astStudentMap, worker, THRESHOLD, fileOutput += "Progressive.txt");
 
