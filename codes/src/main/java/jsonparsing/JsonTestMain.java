@@ -1,7 +1,10 @@
 package jsonparsing;
 
 import jsonparsing.copycat.Worker;
-import jsonparsing.copycat.WorkerJob;
+
+import jsonparsing.copycat.Worker2;
+import jsonparsing.copycat.Worker3;
+import jsonparsing.copycat.WorkerFactory;
 import jsonparsing.entity.AbstractSyntaxTree;
 import jsonparsing.exception.JsonToTreeTimeoutException;
 import jsonparsing.parser.AstFactory;
@@ -23,22 +26,36 @@ public class JsonTestMain {
     private static final double THRESHOLD = 80;
     private static List<String> filesNotProcessed = new ArrayList<String>();
     public static void main(String[] args){
+         Scanner sc = new Scanner(System.in);  // Create a Scanner object
+         System.out.println("Enter Comparison Type");
+         System.out.println("1. BreadthWise");
+         System.out.println("2. Naive Comparison");
+         System.out.println("3. SetWise");
+         System.out.println("4. Compare All");
+         int comparisonType = sc.nextInt();
         // Initialise Ast Tree Builder and Comparison Worker.
 
         // Get an array of all the file names in resources
         File[] files = new File(PATHROOT).listFiles((dir, name) -> !name.equals(".DS_Store"));
         ArrayList<AbstractSyntaxTree> astList = new ArrayList<AbstractSyntaxTree>();
         HashMap<AbstractSyntaxTree, String> astStudentMap = new HashMap<>();
-
-        // Generate AstSets
         generateAstSet(files,  astList, astStudentMap);
+        // Checks Comparison type and then point to the correct worker
+        if (comparisonType != 4){
+            WorkerFactory worker = null;
+            if (comparisonType==1){
+                worker = new Worker();
 
-        // Compare Asts pair-wise
-        compareAsts(astList, astStudentMap);
+            }  else if (comparisonType==2){
+                worker = new Worker2();
 
-
-
+            } else if (comparisonType==3){
+                worker = new Worker3();
+            }
+            compareAsts(astList, astStudentMap, worker);
+        }
     }
+
 
 
 
@@ -47,12 +64,13 @@ public class JsonTestMain {
         // Complexity of O(n) to build all trees from their files
         AstFactory astFactory = new AstFactory();
         for (int i=0; i < files.length; i++){
-            String fileName =files[i].getName();
-            String pathName = PATHROOT + fileName;
 
             // Complexity of O(n) because we are parsing from JSON
             // to AST node by node
-            // try {
+            try {
+                String fileName =files[i].getName();
+                String pathName = PATHROOT + fileName;
+
                 AbstractSyntaxTree ast= astFactory.makeAstFromJsonFile(pathName);
 
 
@@ -71,19 +89,22 @@ public class JsonTestMain {
     }
 
     public static void compareAsts(ArrayList<AbstractSyntaxTree> astList,
-                                    HashMap<AbstractSyntaxTree, String> astStudentMap){
-        Worker worker = new Worker();
+                                    HashMap<AbstractSyntaxTree, String> astStudentMap,
+                                   WorkerFactory worker){
         try {
+
             // Complexity O((n^2)/2)
             // Compare files pair wise
             FileWriter fstream = new FileWriter(FILEOUTPUT);
             BufferedWriter fileWriter = new BufferedWriter(fstream);
+
             for (int i = 0; i < astList.size(); i++)  {
                 AbstractSyntaxTree ast1 = astList.get(i);
 
                 for (int j = i + 1; j < astList.size(); j++){
                     AbstractSyntaxTree ast2 = astList.get(j);
-                    double score = worker.compareSnapshots(ast1, ast2);
+                    double score = worker.compare(ast1, ast2);
+
                     if (score > THRESHOLD){
                         // System.out.println( "Similarity score: " + score + " , " + astStudentMap.get(ast1) + " , " +astStudentMap.get(ast2));
                         fileWriter.write(astStudentMap.get(ast1)+" , "+ astStudentMap.get(ast2) + " , " + score);
@@ -99,7 +120,7 @@ public class JsonTestMain {
 
             // Close filewriter
             fileWriter.close();
-        } catch (IOException e){
+        } catch (Exception e){
             e.printStackTrace();
         }
     }

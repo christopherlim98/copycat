@@ -12,11 +12,18 @@ public class JohnTest {
          // Initialise Ast Tree Builder and Comparison Worker.
         String fileName = "src/main/resources/json/student1317.json";
         String fileName2 = "src/main/resources/json/student1317.json";
-        AstFactory astFactory = new AstFactory();
-        AbstractSyntaxTree ast1= astFactory.makeAstFromJsonFile(fileName);
-        AbstractSyntaxTree ast2= astFactory.makeAstFromJsonFile(fileName2);
-        JohnTest johnTest = new JohnTest();
-        System.out.println(johnTest.compareSetWise(ast1,ast2));  
+        try {
+            AstFactory astFactory = new AstFactory();
+            AbstractSyntaxTree ast1= astFactory.makeAstFromJsonFile(fileName);
+            AbstractSyntaxTree ast2= astFactory.makeAstFromJsonFile(fileName2);
+            JohnTest johnTest = new JohnTest();
+            System.out.println(johnTest.compareSetWise(ast1,ast2));  
+            
+        } catch (Exception e) {
+            //TODO: handle exception
+            System.out.println("Error");
+        }
+
     }
     public double compareSetWise(AbstractSyntaxTree ast1, AbstractSyntaxTree ast2) {
         // Retrieving root nodes for both ast trees
