@@ -43,7 +43,7 @@ mvn exec:java  -D"exec.mainClass"="jsonparsing.JsonTestMain"
 cd c2json
 sh parse.sh
 ```
-Specify the c file you wish to convert and the directory it is found at..
+Specify the c file you wish to convert and the directory it is found at.
 
 #### For windows
 ```
