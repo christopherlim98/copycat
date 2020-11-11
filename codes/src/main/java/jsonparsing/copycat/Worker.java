@@ -73,7 +73,7 @@ public class Worker {
             longer = s1.length();
         }
         int similarity = totalWeight - differences ;
-        score = (double)(similarity) /totalWeight;
+        score = (double)(similarity * ((double)smaller/longer))/totalWeight;
         return score;
     }
 
