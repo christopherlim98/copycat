@@ -4,12 +4,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Constants {
+    // Contains the logic types that we identified as important
     public static String[] TYPES = {"FunctionDefinition", "IterationStatement", "Expression",
     "ArithmeticExpression","PostfixExpression","ParameterList", "ParameterDeclaration",
 "DeclarationSpecifiers","TypeSpecifier","DeclarationSpecifier","TypeSpecifier"
         ,"Identifier","DirectDeclarator","Declarator",
         "Initializer","IntegerConstant","InitDeclarator","InitDeclaratorList","Declaration"};
 
+    // Contains the map for hashing our types to a single character
     public static Map<String,String> HASHDICT =new HashMap<String, String>() {{
         put("TranslationUnit", "a");
         put("FunctionDefinition", "b");
@@ -31,7 +33,13 @@ public class Constants {
         put("Declaration", "r");
     }};
 
-
+    /**
+     * Contains the weights that we associate with the types
+     * We used frequency analysis to determine the weights
+     * More frequent types had lower weights
+     * Less frequent types had higher weights to accentuate uniqueness.
+     * Used fibonacci for the difference in weights, as fibonacci sequence highlights a 60% difference with each increment
+     */
     public static Map<Character, Integer> HASHWEIGHTS =new HashMap<Character, Integer>() {{
         put('a', 1);
         put('b', 34);

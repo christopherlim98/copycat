@@ -22,9 +22,8 @@ import java.util.Scanner;
 
 
 public class Application {
-
     private static String pathRoot = "data/Z5/Z1/";
-    private static String fileOutput = "results/A2016Z5Z1";
+    private static final String FILEOUTPUT = "results/A2016Z5Z1";
     private static final double THRESHOLD = 80;
     private static List<String> filesNotProcessed = new ArrayList<String>();
     private static ArrayList<AbstractSyntaxTree> astList = new ArrayList<AbstractSyntaxTree>();
@@ -36,22 +35,30 @@ public class Application {
         while (userOption != 6){
             // Get user option
             userOption = getUserOption();
+            // Start timer
+            long startTime = System.nanoTime();
             processOptions(userOption);
+            // End timer
+            long endTime = System.nanoTime();
+            long duration = (endTime - startTime);
+            System.out.println("Time taken: " + duration / 1000000000.0 + " seconds\n=======================\n");
         }
 
     }
 
     public static void processOptions(int userOption){
+        double threshold = THRESHOLD;
+
         // Initialise Ast Tree Builder and Comparison Worker.
         // Get an array of all the file names in resources
         File[] files = new File(pathRoot).listFiles((dir, name) -> !name.equals(".DS_Store"));
-
+        String fileOutput = FILEOUTPUT;
         WorkerFactory worker = null;
         if (userOption == 1){
             // 1. Generate ASTs
             generateAstSet(files,  astList, astStudentMap);
             System.out.println("Finished generating trees");
-            System.out.println("=======================\n");
+            printLineBreak();;
             return;
         }
 
@@ -73,6 +80,9 @@ public class Application {
             // 3. Compare using naive progressive comparison
             fileOutput += "Progressive.txt";
             worker = new Worker3();
+            // Progressive checks if it is 0 or 1,
+            // so having a threshold above 0.0 is sufficient.
+            threshold = 0.0;
 
         } else if (userOption == 4){
             // 4. Compare using naive snapshot comparison
@@ -80,29 +90,28 @@ public class Application {
             worker = new Worker();
         }
         System.out.println("Comparing trees...");
-        compareAsts(astList, astStudentMap, worker);
+        compareAsts(astList, astStudentMap, worker, threshold, fileOutput);
         return;
 
     }
 
     public static void compareAll(){
-        fileOutput += "Naive.txt";
+        String fileOutput = FILEOUTPUT;
         WorkerFactory worker = new Worker2();
         System.out.println("Comparing trees using naive comparison...");
-        compareAsts(astList, astStudentMap, worker);
-        System.out.println("=======================\n");
+        compareAsts(astList, astStudentMap, worker, THRESHOLD, fileOutput + "Naive.txt");
+        printLineBreak();
 
-        fileOutput += "Progressive.txt";
         worker = new Worker3();
         System.out.println("Comparing trees using progressive comparison...");
-        compareAsts(astList, astStudentMap, worker);
-        System.out.println("=======================\n");
+        compareAsts(astList, astStudentMap, worker, 0.0, fileOutput + "Progressive.txt" );
+        printLineBreak();
 
         fileOutput += "Snapshot.txt";
         worker = new Worker();
         System.out.println("Comparing trees using snapshot comparison...");
-        compareAsts(astList, astStudentMap, worker);
-        System.out.println("=======================\n");
+        compareAsts(astList, astStudentMap, worker, THRESHOLD, fileOutput += "Progressive.txt");
+
 
     }
     public static void generateAstSet(File[] files, ArrayList<AbstractSyntaxTree> astList,
@@ -130,18 +139,19 @@ public class Application {
             if (i % 20 == 0){
                 System.out.println("Built " + i + " trees...");
             }
-
         }
+        System.out.println("Trees generated. Processed " + astList.size() + " files.");
     }
 
     public static void compareAsts(ArrayList<AbstractSyntaxTree> astList,
                                     HashMap<AbstractSyntaxTree, String> astStudentMap,
-                                   WorkerFactory worker){
+                                   WorkerFactory worker, double threshold, String fileOutput){
         try {
             // Complexity O((n^2)/2)
             // Compare files pair wise
             FileWriter fstream = new FileWriter(fileOutput);
             BufferedWriter fileWriter = new BufferedWriter(fstream);
+            int copyCount = 0;
 
             for (int i = 0; i < astList.size(); i++)  {
                 AbstractSyntaxTree ast1 = astList.get(i);
@@ -150,10 +160,11 @@ public class Application {
                     AbstractSyntaxTree ast2 = astList.get(j);
                     double score = worker.compare(ast1, ast2);
 
-                    if (score > THRESHOLD){
+                    if (score > threshold){
                         System.out.println( "Similarity score: " + score + " , " + astStudentMap.get(ast1) + " , " +astStudentMap.get(ast2));
                         fileWriter.write(astStudentMap.get(ast1)+" , "+ astStudentMap.get(ast2) + " , " + score);
                         fileWriter.newLine();
+                        copyCount++;
                     }
                 }
             }
@@ -167,8 +178,9 @@ public class Application {
             fileWriter.close();
 
             // Update user that process is completed.
-            System.out.println("Finished comparing the files");
-            System.out.println("=======================\n");
+            System.out.println("Finished comparing the files. " +
+                                copyCount + " similar pairs found");
+            printLineBreak();
 
         } catch (Exception e){
             e.printStackTrace();
@@ -178,6 +190,10 @@ public class Application {
     private static void clearScreen(){
         System.out.print("\033[H\033[2J");
         System.out.flush();
+    }
+
+    private static void printLineBreak(){
+        System.out.println("=======================\n");
     }
 
     private static int getUserOption(){
