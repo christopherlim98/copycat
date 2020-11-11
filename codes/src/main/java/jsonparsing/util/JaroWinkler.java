@@ -34,7 +34,7 @@ public class JaroWinkler {
             return 0.0;
         }
         // Calculates the Jaro similarity using formula
-        double jaro = ((m / s1.length() + m / s2.length() + (m - t) / m)) / 3;
+        double jaro = (((double) m / s1.length() + m / s2.length() + ((double)m - t) / (double) m)) / 3;
         // Calculates the Jaro-Winkler similarity using formula if Jaro similarity < 0.7
         double jaroWinkler = jaro;
         if (jaro > DEFAULT_THRESHOLD) {
