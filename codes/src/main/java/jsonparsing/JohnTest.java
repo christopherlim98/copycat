@@ -7,6 +7,7 @@ import java.util.*;
 
 
 public class JohnTest {
+    private int totalChildren = 0;
 
     public static void main(String[] args) {
          String fileName = "src/main/resources/json/studen5660.json";
@@ -25,7 +26,7 @@ public class JohnTest {
     }
         
     }
-    public double compareSetWise(AbstractSyntaxTree ast1, AbstractSyntaxTree ast2) throws Exception {
+    public double compareSetWise(AbstractSyntaxTree ast1, AbstractSyntaxTree ast2) {
         // // Initialise Ast Tree Builder and Comparison Worker.
         // AstFactory astFactory = new AstFactory();
 
@@ -45,7 +46,7 @@ public class JohnTest {
         HashSet hashset = new HashSet<>();
         listOfNodes.add(root);
         listOfNodes2.add(root2);
-        int test = traverse(listOfNodes,listOfNodes2, hashset, 0);
+        int test = traverse(listOfNodes,listOfNodes2, hashset);
         int sizeOfTree1 = ast1.getChildrenCount();
         int sizeOfTree2 = ast2.getChildrenCount();
         double measurement = 0;
@@ -67,10 +68,10 @@ public class JohnTest {
     }
 
 
-    public int traverse(Deque<Node> listOfNodes, Deque<Node> listOfNodes2, HashSet<String> hashset) throws ExceedScoreException{
+    public int traverse(Deque<Node> listOfNodes, Deque<Node> listOfNodes2, HashSet<String> hashset) {
         Deque<Node> storage = new ArrayDeque<>();
         Deque<Node> storage2 = new ArrayDeque<>();
-        try{
+        
             while(listOfNodes.size() != 0 && listOfNodes2.size() != 0){
                 int count = 0;
                 int count2 = 0;
@@ -111,11 +112,9 @@ public class JohnTest {
             if(storage.size() == 0 || storage2.size()== 0){
                 return 1;
             }
-            return traverse(storage, storage2, new HashSet<String>(), totalChildren) ;
-        }
-        catch(ExceedScoreException e){
-            return 0;
-        }
+            return traverse(storage, storage2, new HashSet<String>()) ;
+        
+        
         
     }
 

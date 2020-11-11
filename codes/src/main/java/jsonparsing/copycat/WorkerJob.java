@@ -29,9 +29,10 @@ public class WorkerJob {
         System.out.println(Levenshtein.distance(list1.getFirst(), list2.getFirst()));
         int lfd = Levenshtein.distance(list1.getFirst(), list2.getFirst());
         double ratio = ((double) lfd) / (Math.max(list1.getFirst().length(), list2.getFirst().length()));
-        System.out.println("Levenstein:"+1-ratio);
+        System.out.println("Levenstein:" + (1-ratio));
 
-        return ratio;
+
+        return 1-ratio;
 
     }
 

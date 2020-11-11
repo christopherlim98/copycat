@@ -13,7 +13,7 @@ import java.util.*;
 
 public class JsonTestMain {
 
-    private static String pathRoot = "src/main/resources/z1/";
+    private static String pathRoot = "src/main/resources/json/";
 
     private static String fileOutput = "A16Z1Z1Snapshots.txt";
     public static void main(String[] args){
@@ -53,6 +53,7 @@ public class JsonTestMain {
     public static void compareAsts(ArrayList<AbstractSyntaxTree> astList,
                                     HashMap<AbstractSyntaxTree, String> astStudentMap){
         Worker worker = new Worker();
+        
         // CHange the output file name here
 
         try {
@@ -64,8 +65,10 @@ public class JsonTestMain {
                 AbstractSyntaxTree ast1 = astList.get(i);
                 for (int j = i + 1; j < astList.size(); j++){
                     AbstractSyntaxTree ast2 = astList.get(j);
-                    double score = worker.compareSnapshots(ast1, ast2);
-                    if (score > 40){
+                    JohnTest jt = new JohnTest();
+                    // double score = worker.compareSnapshots(ast1, ast2);
+                    double score = jt.compareSetWise(ast1, ast2);
+                    if (score > 90){
                         System.out.println( "Similarity score: " + score + " , " + astStudentMap.get(ast1) + " , " +astStudentMap.get(ast2));
                         fileWriter.write(astStudentMap.get(ast1)+" , "+ astStudentMap.get(ast2) + " , " + score);
                         fileWriter.newLine();
