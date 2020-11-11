@@ -12,7 +12,7 @@ public class NaiveWorker implements  WorkerFactory{
         Algorithm algo = new Algorithm();
 
         // We use a linkedlist as we can add elements fast
-        // Also linkedlist is good as we only need to access the first node
+        // Also, linkedlist is appropriate as we only need to access the first node
         // as the first node contains the most information.
         LinkedList<String> list1 = new LinkedList<>();
         algo.traverse(list1, ast1.getRoot());
