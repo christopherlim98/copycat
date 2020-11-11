@@ -34,7 +34,7 @@
 pip install maven
 cd codes
 mvn compile
-mvn exec:java  -D"exec.mainClass"="jsonparsing.JsonTestMain"
+mvn exec:java  -D"exec.mainClass"="copycat.Application"
 ```
 
 ## Usage for "c-to-json"
