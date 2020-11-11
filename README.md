@@ -1,5 +1,6 @@
 
-# CS201_G2T8 Source code plagiarism
+# CS201_G2T8 
+# Source code plagiarism
 
 ## Useful Directories:
 
