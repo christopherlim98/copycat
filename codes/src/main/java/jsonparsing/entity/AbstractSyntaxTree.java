@@ -98,7 +98,6 @@ public class AbstractSyntaxTree {
         return count;
     }
 
-
     public Node returnRoot(){
         return root;
     }

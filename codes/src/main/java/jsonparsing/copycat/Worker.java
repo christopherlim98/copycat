@@ -8,7 +8,8 @@ import jsonparsing.util.JaroWinkler;
 import jsonparsing.util.Levenshtein;
 import jsonparsing.constants.Constants;
 
-public class Worker {
+public class Worker implements WorkerFactory{
+
     public double compareBreadthWise(AbstractSyntaxTree ast1, AbstractSyntaxTree ast2){
         // Returns a score from 0.0 - 1.0  on how similar the trees are
 
@@ -93,8 +94,9 @@ public class Worker {
         // we take the square value of the fraction when normalising the score.
         return score/count * ((double)Math.pow(ks1.size(),2) /Math.pow(ks2.size(),2));
     }
-
-    public double compareSnapshots(AbstractSyntaxTree ast1, AbstractSyntaxTree ast2){
+    @Override
+    public double compare(AbstractSyntaxTree ast1, AbstractSyntaxTree ast2){
+    //public double compareSnapshots(AbstractSyntaxTree ast1, AbstractSyntaxTree ast2){
         // Returns a score from 0.0 - 1.0  on how similar the trees are
         double score = 0.0;
         Algorithm algo = new Algorithm();
@@ -112,22 +114,6 @@ public class Worker {
         }
         return 100 * score;
     }
-    public double compareNaive(AbstractSyntaxTree ast1, AbstractSyntaxTree ast2){
-        double score = 0.0;
-        Algorithm algo = new Algorithm();
-        LinkedList<String> list1 = new LinkedList<>();
-        algo.traverse(list1, ast1.getRoot());
-        LinkedList<String> list2 = new LinkedList<>();
-        algo.traverse(list2, ast2.getRoot());
 
-        // JaroWinkler jaroWinkler2 = new JaroWinkler();
-
-        int lfd = Levenshtein.distance(list1.getFirst(), list2.getFirst());
-        double ratio = ((double) lfd) / (Math.max(list1.getFirst().length(), list2.getFirst().length()));
-        // System.out.println("Levenstein:"+(1-ratio));
-
-        return (1-ratio)*100;
-
-    }
 
 }

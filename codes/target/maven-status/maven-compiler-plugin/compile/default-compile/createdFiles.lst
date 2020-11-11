@@ -1,10 +1,10 @@
 jsonparsing\util\Algorithm.class
+jsonparsing\JohnTest.class
 jsonparsing\exception\JsonToTreeTimeoutException.class
-jsonparsing\MicroTest.class
-jsonparsing\ExceedScoreException.class
 jsonparsing\util\Hasher.class
 jsonparsing\parser\AstFactory.class
 jsonparsing\parser\Json.class
+jsonparsing\copycat\Worker3.class
 jsonparsing\constants\Constants$1.class
 jsonparsing\copycat\Worker2.class
 jsonparsing\entity\Node.class
@@ -16,3 +16,4 @@ jsonparsing\copycat\Worker.class
 jsonparsing\constants\Constants$2.class
 jsonparsing\util\Levenshtein.class
 jsonparsing\JsonTestMain.class
+jsonparsing\copycat\WorkerFactory.class

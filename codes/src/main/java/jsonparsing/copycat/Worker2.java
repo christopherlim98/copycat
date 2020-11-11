@@ -6,7 +6,8 @@ import jsonparsing.util.Levenshtein;
 
 import java.util.LinkedList;
 
-public class Worker2 {
+public class Worker2 implements  WorkerFactory{
+    @Override
     public double compare(AbstractSyntaxTree ast1, AbstractSyntaxTree ast2){
         double score = 0.0;
         Algorithm algo = new Algorithm();
