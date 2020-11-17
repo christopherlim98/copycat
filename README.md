@@ -3,7 +3,7 @@
 # Source code plagiarism
 In this project, we create 3 algorithms for analysing source code plagiarism.
 - Naive algorthim condenses code logic to the root node, drawing inspiration from merkle root. We compare trees by the root node. (Scalability)
-- Snapshot algorithm looks at each tree breadth-wise and depth-wise to analyse code similarity. (Accuracy)
+- Snapshot algorithm looks at each tree breadth-wise and depth-wise to analyse code similarity. We use frequency analysis to give inverted weights to each node type for a more nuanced score. Weights are based on fibonacci sequence, which highlights differences (~60%) and reduces noise in the similarity comparison. (Accuracy)
 - Progressive algorithm compares two trees, iteratively exploring each tree level. (Efficiency)
 
 Main data structures used are abstract syntax trees, hashmaps, linked lists and arrays.
@@ -59,8 +59,9 @@ Download WSL
 ```
 
 ## Future extensions
-To allow for comparisons of entire repos, not just single-file source code.
-To allow for analysis of larger source code, which would require progressive algorithm to build compare the trees iteratively instead of having the requisite of having the entire tree built in-memory.
+To allow for comparisons of entire repos, not just single-file source code. </br>
+To allow for analysis of larger source code, which would require progressive algorithm to build compare the trees iteratively instead of having the requisite of having the entire tree built in-memory. </br>
+To allow for multiple comparisons usin indexing, which would build on the naive merkle-root algorithm. </br>
 To highlight plagiarised portions through a UI.
 
 ## Limitations
