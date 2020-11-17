@@ -1,14 +1,21 @@
 
-# CS201_G2T8 
+# Data Structures and Algorithms
 # Source code plagiarism
+In this project, we create 3 algorithms for analysing source code plagiarism.
+- Naive algorthim condenses code logic to the root node, drawing inspiration from merkle root. We compare trees by the root node. (Scalability)
+- Snapshot algorithm looks at each tree breadth-wise and depth-wise to analyse code similarity. (Accuracy)
+- Progressive algorithm compares two trees, iteratively exploring each tree level. (Efficiency)
+
+Main data structures used are abstract syntax trees, hashmaps, linked lists and arrays.
+Dataset taken from IEEE Dataport: https://ieee-dataport.org/open-access/programming-homework-dataset-plagiarism-detection#files.
 
 ## Useful Directories:
 
 #### "codes/src/main" directory -> Contains maven project for 3 algorithms.
 	
 	1. Naive implementation
-	2. Snapshot implementation (Accuracy)
-	3. Progression/Dynamic implementation (Efficiency)
+	2. Snapshot implementation 
+	3. Progression/Dynamic implementation 
 
 #### "c-to-json" directory -> contains c code from https://github.com/deiuch/c-to-json 
 
@@ -50,8 +57,20 @@ Specify the c file you wish to convert and the directory it is found at.
 ```
 Download WSL
 ```
-## Contributing
 
+## Future extensions
+To allow for comparisons of entire repos, not just single-file source code.
+To allow for analysis of larger source code, which would require progressive algorithm to build compare the trees iteratively instead of having the requisite of having the entire tree built in-memory.
+To highlight plagiarised portions through a UI.
+
+## Limitations
+Plagiarism is subjective. There is still need for manual review of each code on a case by case basis.
+
+## Video
+https://www.youtube.com/watch?v=t68WSdoI_Do&feature=youtu.be
+
+## Contributing
+Job Seow, John Luke, Kenneth Kho, Wen Yu, Christopher Lim
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
