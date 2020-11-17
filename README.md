@@ -59,10 +59,10 @@ Download WSL
 ```
 
 ## Future extensions
-To allow for comparisons of entire repos, not just single-file source code. </br>
-To allow for analysis of larger source code, which would require progressive algorithm to build compare the trees iteratively instead of having the requisite of having the entire tree built in-memory. </br>
-To allow for multiple comparisons usin indexing, which would build on the naive merkle-root algorithm. </br>
-To highlight plagiarised portions through a UI.
+- To allow for comparisons of entire repos, not just single-file source code. </br>
+- To allow for analysis of larger source code, which would require progressive algorithm to build compare the trees iteratively instead of having the requisite of --having the entire tree built in-memory. </br>
+- To allow for multiple comparisons usin indexing, which would build on the naive merkle-root algorithm. </br>
+- To highlight plagiarised portions through a UI.
 
 ## Limitations
 Plagiarism is subjective. There is still need for manual review of each code on a case by case basis.
